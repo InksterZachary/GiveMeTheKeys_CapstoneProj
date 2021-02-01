@@ -10,5 +10,7 @@ namespace GMTK_Capstone.Contracts
     {
         Landlord GetLandlord(int landlordId);
         void CreateLandlord(Landlord landlord);
+        void EditLandlord(Landlord landlord);
+        void DeleteLandlord(Landlord landlord);
     }
 }
