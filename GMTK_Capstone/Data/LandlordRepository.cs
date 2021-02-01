@@ -12,5 +12,7 @@ namespace GMTK_Capstone.Data
         public LandlordRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
+        public Landlord GetLandlord(int landlordId) => FindByCondition(c => c.LandlordId.Equals(landlordId)).SingleOrDefault();
+        public void CreateLandlord(Landlord landlord) => Create(landlord);
     }
 }

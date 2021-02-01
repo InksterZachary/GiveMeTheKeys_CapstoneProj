@@ -8,5 +8,7 @@ namespace GMTK_Capstone.Contracts
 {
     public interface ILandlordRepository : IRepositoryBase<Landlord>
     {
+        Landlord GetLandlord(int landlordId);
+        void CreateLandlord(Landlord landlord);
     }
 }
