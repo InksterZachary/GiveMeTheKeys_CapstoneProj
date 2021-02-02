@@ -20,15 +20,15 @@ namespace GMTK_Capstone.ActionFilters
             var controller = context.RouteData.Values["controller"];
             if (controller.Equals("Home"))
             {
-                if (_claimsPrincipal.IsInRole("Customer"))
+                if (_claimsPrincipal.IsInRole("Landlord"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Customers", null);
+                    "Landlord", null);
                 }
-                else if (_claimsPrincipal.IsInRole("Employee"))
+                else if (_claimsPrincipal.IsInRole("Renter"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Employees", null);
+                    "Renter", null);
                 }
             }
         }
