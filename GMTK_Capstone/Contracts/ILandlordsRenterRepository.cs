@@ -8,5 +8,9 @@ namespace GMTK_Capstone.Contracts
 {
     public interface ILandlordsRenterRepository : IRepositoryBase<LandlordsRenter>
     {
+        Landlord GetLandlordsRenter(int landlordsRenterId);
+        void CreateLandlordsRenter(LandlordsRenter landlordsRenter);
+        void EditLandlordsRenter(LandlordsRenter landlordsRenter);
+        void DeleteLandlordsRenter(LandlordsRenter landlordsRenter);
     }
 }

@@ -8,5 +8,9 @@ namespace GMTK_Capstone.Contracts
 {
     public interface IRenterRepository : IRepositoryBase<Renter>
     {
+        Renter GetRenter(int renterId);
+        void CreateRenter(Renter renter);
+        void EditRenter(Renter renter);
+        void DeleteRenter(Renter renter);
     }
 }

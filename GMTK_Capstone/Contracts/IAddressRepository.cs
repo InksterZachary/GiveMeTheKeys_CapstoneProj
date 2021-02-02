@@ -8,5 +8,9 @@ namespace GMTK_Capstone.Contracts
 {
     public interface IAddressRepository : IRepositoryBase<Address>
     {
+        Address GetAddress(int addressId);
+        void CreateAddress(Address address);
+        void EditAddress(Address address);
+        void DeleteAddress(Address address);
     }
 }

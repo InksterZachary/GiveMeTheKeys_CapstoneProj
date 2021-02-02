@@ -8,5 +8,9 @@ namespace GMTK_Capstone.Contracts
 {
     public interface IReviewRepository : IRepositoryBase<Review>
     {
+        Review GetReview(int reviewId);
+        void CreateReview(Review review);
+        void EditReview(Review review);
+        void DeleteReview(Review review);
     }
 }
