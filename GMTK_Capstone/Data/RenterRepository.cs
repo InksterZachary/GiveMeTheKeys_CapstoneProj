@@ -12,5 +12,9 @@ namespace GMTK_Capstone.Data
         public RenterRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
+        public Renter GetRenter(int renterId) => FindByCondition(c => c.RenterId.Equals(renterId)).SingleOrDefault();
+        public void CreateRenter(Renter renter) => Create(renter);
+        public void EditRenter(Renter renter) => Update(renter);
+        public void DeleteRenter(Renter renter) => Delete(renter);
     }
 }

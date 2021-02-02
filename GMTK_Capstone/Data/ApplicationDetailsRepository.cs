@@ -12,5 +12,9 @@ namespace GMTK_Capstone.Data
         public ApplicationDetailsRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
+        public ApplicationDetails GetApplicationDetails(int applicationDetailsId) => FindByCondition(c => c.ApplicationDetailsId.Equals(applicationDetailsId)).SingleOrDefault();
+        public void CreateApplicationDetails(ApplicationDetails applicationDetails) => Create(applicationDetails);
+        public void EditApplicationDetails(ApplicationDetails applicationDetails) => Update(applicationDetails);
+        public void DeleteApplicationDetails(ApplicationDetails applicationDetails) => Delete(applicationDetails);
     }
 }

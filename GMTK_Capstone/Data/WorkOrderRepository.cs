@@ -12,5 +12,9 @@ namespace GMTK_Capstone.Data
         public WorkOrderRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
+        public WorkOrder GetWorkOrder(int workOrderId) => FindByCondition(c => c.WorkOrderId.Equals(workOrderId)).SingleOrDefault();
+        public void CreateWorkOrder(WorkOrder workOrder) => Create(workOrder);
+        public void EditWorkOrder(WorkOrder workOrder) => Update(workOrder);
+        public void DeleteWorkOrder(WorkOrder workOrder) => Delete(workOrder);
     }
 }

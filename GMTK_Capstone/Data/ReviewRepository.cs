@@ -12,5 +12,9 @@ namespace GMTK_Capstone.Data
         public ReviewRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
+        public Review GetReview(int reviewId) => FindByCondition(c => c.ReviewId.Equals(reviewId)).SingleOrDefault();
+        public void CreateReview(Review review) => Create(review);
+        public void EditReview(Review review) => Update(review);
+        public void DeleteReview(Review review) => Delete(review);
     }
 }

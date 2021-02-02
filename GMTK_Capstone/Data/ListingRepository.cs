@@ -12,5 +12,9 @@ namespace GMTK_Capstone.Data
         public ListingRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
         }
+        public Listing GetListing(int listingId) => FindByCondition(c => c.ListingId.Equals(listingId)).SingleOrDefault();
+        public void CreateListing(Listing listing) => Create(listing);
+        public void EditListing(Listing listing) => Update(listing);
+        public void DeleteListing(Listing listing) => Delete(listing);
     }
 }
