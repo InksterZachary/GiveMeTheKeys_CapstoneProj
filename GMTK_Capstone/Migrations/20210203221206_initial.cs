@@ -89,6 +89,8 @@ namespace GMTK_Capstone.Migrations
                 {
                     LandlordId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     CompanyName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
@@ -111,7 +113,8 @@ namespace GMTK_Capstone.Migrations
                 {
                     RenterId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     IsVerified = table.Column<bool>(nullable: false),
@@ -359,7 +362,12 @@ namespace GMTK_Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "8d79a3fd-6317-419c-bc4d-d22a526ce837", "503b80b5-d8f1-4e93-a8ef-73aff77876e0", "Admin", "ADMIN" });
+                values: new object[] { "d9c3a097-f31b-4611-932a-461cb2b8c292", "26a793f6-7eef-4371-a5cd-3626bea7d060", "Landlord", "LANDLORD" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "aace6f03-2f5b-4916-8856-f07edbbaba2f", "4ccfac27-7b40-42f9-98f0-90c58448587c", "Renter", "RENTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

@@ -1,5 +1,6 @@
 ﻿using GMTK_Capstone.Contracts;
 using GMTK_Capstone.Models;
+using GMTK_Capstone.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -41,14 +42,16 @@ namespace GMTK_Capstone.Controllers
             ViewData["states"] = new List<string> { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS",
                 "KY", "LA", "ME", "MD", "MA", "MI","MN", "MS", "MO","MT", "NE", "NV","NH", "NJ", "NM","NY", "NC", "ND","OH", "OK", "OR","PA", "RI", "SC","SD",
                 "TN", "TX","UT", "VT", "VA","WA", "WV", "WI","WY" };
-            return View(new Landlord());
+            return View(new LandlordAddressViewModel());
         }
 
         // POST: LandlordsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(LandlordAddressViewModel theVM)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentLandlord = _repo.Landlord.GetLandlord(userId);
             try
             {
                 return RedirectToAction(nameof(Index));

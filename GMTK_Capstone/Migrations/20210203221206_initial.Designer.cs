@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GMTK_Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210203200451_addedUserRoles")]
-    partial class addedUserRoles
+    [Migration("20210203221206_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,6 +98,12 @@ namespace GMTK_Capstone.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -212,10 +218,13 @@ namespace GMTK_Capstone.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsVerified")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -310,15 +319,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b628ce4-22f6-4f72-9c26-d06a5653062a",
-                            ConcurrencyStamp = "8893a04c-7a46-4f74-b1cc-90532378e9e2",
+                            Id = "d9c3a097-f31b-4611-932a-461cb2b8c292",
+                            ConcurrencyStamp = "26a793f6-7eef-4371-a5cd-3626bea7d060",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "bd66bf75-53da-4456-bccf-9d7d95be75ef",
-                            ConcurrencyStamp = "75a5492b-0501-44f8-9df2-70c6b0846fef",
+                            Id = "aace6f03-2f5b-4916-8856-f07edbbaba2f",
+                            ConcurrencyStamp = "4ccfac27-7b40-42f9-98f0-90c58448587c",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });

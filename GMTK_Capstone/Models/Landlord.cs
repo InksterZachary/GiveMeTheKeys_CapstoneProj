@@ -11,6 +11,8 @@ namespace GMTK_Capstone.Models
     {
         [Key]
         public int LandlordId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string CompanyName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }

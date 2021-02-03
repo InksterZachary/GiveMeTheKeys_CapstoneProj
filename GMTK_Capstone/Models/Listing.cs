@@ -12,7 +12,7 @@ namespace GMTK_Capstone.Models
         [Key]
         public int ListingId { get; set; }
         [ForeignKey("Landlord")]
-        public int LandlordId { get; set; }
+        public int? LandlordId { get; set; }
         public Landlord Landlord { get; set; }
 
         public string HomeType { get; set; }
