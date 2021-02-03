@@ -24,7 +24,7 @@ namespace GMTK_Capstone.Models
         public int? LengthOfTerm { get; set; }
         public bool UtilitiesIncluded { get; set; }
         public bool GoodCreditRequired { get; set; }
-        public List<string> Amenities { get; set; }
+        public string Amenities { get; set; }
         public bool IsRented { get; set; }
         [ForeignKey("Address")]
         public int AddressId { get; set; }

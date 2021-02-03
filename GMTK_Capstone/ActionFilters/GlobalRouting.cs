@@ -23,12 +23,12 @@ namespace GMTK_Capstone.ActionFilters
                 if (_claimsPrincipal.IsInRole("Landlord"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Landlord", null);
+                    "Landlords", null);
                 }
                 else if (_claimsPrincipal.IsInRole("Renter"))
                 {
                     context.Result = new RedirectToActionResult("Index",
-                    "Renter", null);
+                    "Renters", null);
                 }
             }
         }

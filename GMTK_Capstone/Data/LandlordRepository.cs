@@ -13,6 +13,7 @@ namespace GMTK_Capstone.Data
         {
         }
         public Landlord GetLandlord(int landlordId) => FindByCondition(c => c.LandlordId.Equals(landlordId)).SingleOrDefault();
+        public Landlord GetLandlord(string landlordId) => FindByCondition(c => c.LandlordId.Equals(landlordId)).SingleOrDefault();
         public void CreateLandlord(Landlord landlord) => Create(landlord);
         public void EditLandlord(Landlord landlord) => Update(landlord);
         public void DeleteLandlord(Landlord landlord) => Delete(landlord);

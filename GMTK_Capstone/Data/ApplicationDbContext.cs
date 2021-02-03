@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using GMTK_Capstone.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,15 @@ namespace GMTK_Capstone.Data
             : base(options)
         {
         }
+
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<ApplicationDetails> ApplicationsDetails { get; set; }
+        public DbSet<Landlord> Landlords { get; set; }
+        public DbSet<LandlordsRenter> LandlordsRenters { get; set; }
+        public DbSet<Listing> Listings { get; set; }
+        public DbSet<Renter> Renters { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<WorkOrder> WorkOrders { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -20,10 +30,14 @@ namespace GMTK_Capstone.Data
             .HasData(
             new IdentityRole
             {
-                Name = "Admin",
-                NormalizedName = "ADMIN"
-            }
-            );
+                Name = "Landlord",
+                NormalizedName = "LANDLORD"
+            },
+            new IdentityRole
+            {
+                Name = "Renter",
+                NormalizedName = "RENTER"
+            });
         }
     }
 }
