@@ -17,5 +17,14 @@ namespace GMTK_Capstone.ViewModels
         public string State { get; set; }
         public string Zipcode { get; set; }
 
+        public bool HasPets { get; set; }
+        public bool IsSmoker { get; set; }
+        public bool HasCriminalBackground { get; set; }
+        public bool HasEviction { get; set; }
+        public bool HasOpenUtilities { get; set; }
+        public bool HasOnTimePaymentHistory { get; set; }
+        public bool HasOpenCollectionsAccount { get; set; }
+        public int YearsAtCurrentJob { get; set; }
+        public int AnnualIncome { get; set; }
     }
 }
