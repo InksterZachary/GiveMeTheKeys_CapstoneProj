@@ -32,7 +32,7 @@ namespace GMTK_Capstone.Controllers
         }
 
         // GET: LandlordsController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id) //My properties view here
         {
             return View();
         }
@@ -77,7 +77,52 @@ namespace GMTK_Capstone.Controllers
                 return View();
             }
         }
+        //GET
+        public ActionResult CreateListing()
+        {
+            ViewData["homeTypes"] = new List<string> { "House", "Apartment", "Townhome" };
+            return View(new ListingAddressViewModel());
+        }
 
+        //Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateListing(ListingAddressViewModel theListing)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Landlord landlord = _repo.Landlord.GetLandlord(userId);
+
+            Listing newListing = new Listing();
+            Address listingAddress = new Address();
+
+            _repo.Listing.CreateListing(newListing);
+            newListing.LandlordId = landlord.LandlordId;
+            newListing.Address = listingAddress;
+            newListing.Address.StreetAddress = theListing.StreetAddress;
+            newListing.Address.City = theListing.City;
+            newListing.Address.State = theListing.State;
+            newListing.Address.Zipcode = int.Parse(theListing.Zipcode);
+            newListing.HomeType = theListing.HomeType;
+            newListing.PricePoint = theListing.PricePoint;
+            newListing.AvailabilityDate = theListing.AvailabilityDate;
+            newListing.LengthOfTerm = theListing.LengthOfTerm;
+            newListing.Amenities = theListing.Amenities;
+            newListing.DealActive = theListing.DealActive;
+            newListing.IsSmoker = theListing.IsSmoker;
+            newListing.HasPet = theListing.HasPet;
+            newListing.UtilitiesIncluded = theListing.UtilitiesIncluded;
+            newListing.GoodCreditRequired = theListing.GoodCreditRequired;
+            newListing.IsRented = theListing.IsRented;
+            _repo.Save();
+            try
+            {
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                return View(e);
+            }
+        }
         // GET: LandlordsController/Edit/5
         public ActionResult Edit(int id)
         {
