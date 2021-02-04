@@ -1,4 +1,5 @@
-﻿using GMTK_Capstone.Contracts;
+﻿using GMTK_Capstone.ActionFilters;
+using GMTK_Capstone.Contracts;
 using GMTK_Capstone.Models;
 using GMTK_Capstone.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -50,8 +51,23 @@ namespace GMTK_Capstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(LandlordAddressViewModel theVM)
         {
+            Address newAddress = new Address();
+            Landlord newLandlord = new Landlord();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var currentLandlord = _repo.Landlord.GetLandlord(userId);
+            newLandlord.IdentityUserId = userId;
+            _repo.Landlord.CreateLandlord(newLandlord);
+            newLandlord.IdentityUserId = userId;
+            newLandlord.FirstName = theVM.FirstName;
+            newLandlord.LastName = theVM.LastName;
+            newLandlord.CompanyName = theVM.CompanyName;
+            newLandlord.Email = theVM.Email;
+            newLandlord.PhoneNumber = theVM.PhoneNumber;
+            newLandlord.Address = newAddress;
+            newAddress.StreetAddress = theVM.StreetAddress;
+            newAddress.City = theVM.City;
+            newAddress.State = theVM.State;
+            newAddress.Zipcode = int.Parse(theVM.ZipCode);
+            _repo.Save();
             try
             {
                 return RedirectToAction(nameof(Index));

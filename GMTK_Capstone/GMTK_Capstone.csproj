@@ -24,8 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Migrations\" />
-    <Folder Include="Views\Landlords\" />
   </ItemGroup>
 
 </Project>
