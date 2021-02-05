@@ -13,5 +13,6 @@ namespace GMTK_Capstone.Contracts
         void CreateListing(Listing listing);
         void EditListing(Listing listing);
         void DeleteListing(Listing listing);
+        IQueryable<Listing> GetAllListings(int listingId);
     }
 }

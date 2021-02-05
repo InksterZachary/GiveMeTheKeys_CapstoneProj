@@ -22,9 +22,13 @@ namespace GMTK_Capstone.Controllers
         // GET: LandlordsController
         public ActionResult Index()
         {
+            //I want to be able to view listing addresses on a map
+            //I need to pass in listings to access their addresses
+            //In the razor view I will populate the markers on a map using .notation
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _repo.Landlord.GetLandlord(userId);
-            if (landlord == null)
+            var allListings = _repo.Listing.GetAllListings(landlord.LandlordId);
+                if (landlord == null)
             {
                 return RedirectToAction("Create");
             }

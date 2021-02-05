@@ -1,5 +1,6 @@
 ﻿using GMTK_Capstone.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +13,6 @@ namespace GMTK_Capstone.Contracts
         void CreateAddress(Address address);
         void EditAddress(Address address);
         void DeleteAddress(Address address);
+        IQueryable<Address> GetAllAddress(int addressId);
     }
 }
