@@ -7,6 +7,7 @@ namespace GMTK_Capstone.ViewModels
 {
     public class ListingAddressViewModel
     {
+        public string ListingName { get; set; }
         public string StreetAddress { get; set; }
         public string City { get; set; }
         public string State { get; set; }

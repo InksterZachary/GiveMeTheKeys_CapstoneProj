@@ -4,6 +4,7 @@ using GMTK_Capstone.Models;
 using GMTK_Capstone.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +28,12 @@ namespace GMTK_Capstone.Controllers
             //In the razor view I will populate the markers on a map using .notation
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _repo.Landlord.GetLandlord(userId);
-            var allListings = _repo.Listing.GetAllListings(landlord.LandlordId);
-                if (landlord == null)
+            var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address");
+            if (landlord == null)
             {
                 return RedirectToAction("Create");
             }
-            return View(landlord);
+            return View(allListings);
         }
 
         // GET: LandlordsController/Details/5
@@ -101,6 +102,7 @@ namespace GMTK_Capstone.Controllers
 
             _repo.Listing.CreateListing(newListing);
             newListing.LandlordId = landlord.LandlordId;
+            newListing.ListingName = theListing.ListingName;
             newListing.Address = listingAddress;
             newListing.Address.StreetAddress = theListing.StreetAddress;
             newListing.Address.City = theListing.City;

@@ -1,4 +1,4 @@
-﻿@model GMTK_Capstone.Models.Listing
+﻿@model IEnumerable<GMTK_Capstone.Models.Listing>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,12 +6,20 @@
 }
 
 <h1>Index</h1>
-
-<div>
+@*@foreach (Listing item in Model)
+{
+    <details>
+        <summary><h3>@item.ListingName</h3></summary>
+        <h4>@item.Address.City</h4>
+        <h4>@item.Address.State</h4>
+        <h4>@item.Address.Zipcode</h4>
+    </details>
+}*@
+@*<div>
     <h4>Listing</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <dl class="row">*@
+        @*<dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Landlord)
         </dt>
         <dd class = "col-sm-10">
@@ -84,7 +92,7 @@
             @Html.DisplayFor(model => model.IsRented)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Address.AddressId)
@@ -112,4 +120,4 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ListingId">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@

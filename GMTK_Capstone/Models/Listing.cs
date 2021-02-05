@@ -15,6 +15,7 @@ namespace GMTK_Capstone.Models
         public int? LandlordId { get; set; }
         public Landlord Landlord { get; set; }
 
+        public string ListingName { get; set; }
         public string HomeType { get; set; }
         public int PricePoint { get; set; }
         public bool DealActive { get; set; }

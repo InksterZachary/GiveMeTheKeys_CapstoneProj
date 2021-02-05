@@ -15,6 +15,11 @@
         <form asp-action="CreateListing">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="ListingName" class="control-label"></label>
+                <input asp-for="ListingName" class="form-control" />
+                <span asp-validation-for="ListingName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="StreetAddress" class="control-label"></label>
                 <input asp-for="StreetAddress" class="form-control" />
                 <span asp-validation-for="StreetAddress" class="text-danger"></span>

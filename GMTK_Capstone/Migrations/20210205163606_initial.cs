@@ -84,61 +84,6 @@ namespace GMTK_Capstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Landlords",
-                columns: table => new
-                {
-                    LandlordId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    CompanyName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    AddressId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Landlords", x => x.LandlordId);
-                    table.ForeignKey(
-                        name: "FK_Landlords_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "AddressId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Renters",
-                columns: table => new
-                {
-                    RenterId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    IsVerified = table.Column<bool>(nullable: false),
-                    AddressId = table.Column<int>(nullable: false),
-                    ApplicationDetailsId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Renters", x => x.RenterId);
-                    table.ForeignKey(
-                        name: "FK_Renters_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "AddressId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Renters_ApplicationsDetails_ApplicationDetailsId",
-                        column: x => x.ApplicationDetailsId,
-                        principalTable: "ApplicationsDetails",
-                        principalColumn: "ApplicationDetailsId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -245,12 +190,82 @@ namespace GMTK_Capstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Landlords",
+                columns: table => new
+                {
+                    LandlordId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdentityUserId = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    CompanyName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    AddressId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Landlords", x => x.LandlordId);
+                    table.ForeignKey(
+                        name: "FK_Landlords_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Landlords_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Renters",
+                columns: table => new
+                {
+                    RenterId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdentityUserId = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    IsVerified = table.Column<bool>(nullable: false),
+                    AddressId = table.Column<int>(nullable: false),
+                    ApplicationDetailsId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Renters", x => x.RenterId);
+                    table.ForeignKey(
+                        name: "FK_Renters_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Renters_ApplicationsDetails_ApplicationDetailsId",
+                        column: x => x.ApplicationDetailsId,
+                        principalTable: "ApplicationsDetails",
+                        principalColumn: "ApplicationDetailsId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Renters_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Listings",
                 columns: table => new
                 {
                     ListingId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LandlordId = table.Column<int>(nullable: false),
+                    LandlordId = table.Column<int>(nullable: true),
+                    ListingName = table.Column<string>(nullable: true),
                     HomeType = table.Column<string>(nullable: true),
                     PricePoint = table.Column<int>(nullable: false),
                     DealActive = table.Column<bool>(nullable: false),
@@ -280,8 +295,8 @@ namespace GMTK_Capstone.Migrations
                         name: "FK_Listings_Landlords_LandlordId",
                         column: x => x.LandlordId,
                         principalTable: "Landlords",
-                        principalColumn: "LandlordId");//,
-                        //onDelete: ReferentialAction.Cascade);
+                        principalColumn: "LandlordId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -306,7 +321,7 @@ namespace GMTK_Capstone.Migrations
                         name: "FK_LandlordsRenters_Renters_RenterId",
                         column: x => x.RenterId,
                         principalTable: "Renters",
-                        principalColumn: "RenterId");//,
+                        principalColumn: "RenterId");
                         //onDelete: ReferentialAction.Cascade);
                 });
 
@@ -333,7 +348,7 @@ namespace GMTK_Capstone.Migrations
                         name: "FK_Reviews_Renters_RenterId",
                         column: x => x.RenterId,
                         principalTable: "Renters",
-                        principalColumn: "RenterId");//,
+                        principalColumn: "RenterId");
                         //onDelete: ReferentialAction.Cascade);
                 });
 
@@ -362,12 +377,12 @@ namespace GMTK_Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "d9c3a097-f31b-4611-932a-461cb2b8c292", "26a793f6-7eef-4371-a5cd-3626bea7d060", "Landlord", "LANDLORD" });
+                values: new object[] { "1de9b332-c3ea-4b29-b8c6-990cd4a50ae1", "e4b9b93e-bdd3-4d86-9b52-b2273d96b944", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "aace6f03-2f5b-4916-8856-f07edbbaba2f", "4ccfac27-7b40-42f9-98f0-90c58448587c", "Renter", "RENTER" });
+                values: new object[] { "7297f8fa-0ba1-4141-8bf2-13d6417e0cca", "bc9ad669-c99c-42f7-8149-225d5f9dc589", "Renter", "RENTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -414,6 +429,11 @@ namespace GMTK_Capstone.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Landlords_IdentityUserId",
+                table: "Landlords",
+                column: "IdentityUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LandlordsRenters_LandlordId",
                 table: "LandlordsRenters",
                 column: "LandlordId");
@@ -442,6 +462,11 @@ namespace GMTK_Capstone.Migrations
                 name: "IX_Renters_ApplicationDetailsId",
                 table: "Renters",
                 column: "ApplicationDetailsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Renters_IdentityUserId",
+                table: "Renters",
+                column: "IdentityUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_LandlordId",
@@ -489,9 +514,6 @@ namespace GMTK_Capstone.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Renters");
 
             migrationBuilder.DropTable(
@@ -505,6 +527,9 @@ namespace GMTK_Capstone.Migrations
 
             migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

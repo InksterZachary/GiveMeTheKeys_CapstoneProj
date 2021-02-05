@@ -187,6 +187,9 @@ namespace GMTK_Capstone.Migrations
                     b.Property<int?>("LengthOfTerm")
                         .HasColumnType("int");
 
+                    b.Property<string>("ListingName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PricePoint")
                         .HasColumnType("int");
 
@@ -327,15 +330,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cd94c1b1-ceb3-4e37-b14a-8daa9dad8837",
-                            ConcurrencyStamp = "052bfd39-601e-4535-8f3d-bd3a491d1e91",
+                            Id = "1de9b332-c3ea-4b29-b8c6-990cd4a50ae1",
+                            ConcurrencyStamp = "e4b9b93e-bdd3-4d86-9b52-b2273d96b944",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "8812ae69-d0ea-4df2-812f-9f4546a8cb53",
-                            ConcurrencyStamp = "870a79ec-6779-4c18-943d-71081d0979f9",
+                            Id = "7297f8fa-0ba1-4141-8bf2-13d6417e0cca",
+                            ConcurrencyStamp = "bc9ad669-c99c-42f7-8149-225d5f9dc589",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });

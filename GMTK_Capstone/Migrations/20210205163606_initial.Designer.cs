@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GMTK_Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210203221206_initial")]
+    [Migration("20210205163606_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,9 @@ namespace GMTK_Capstone.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -112,6 +115,8 @@ namespace GMTK_Capstone.Migrations
                     b.HasKey("LandlordId");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("Landlords");
                 });
@@ -178,11 +183,14 @@ namespace GMTK_Capstone.Migrations
                     b.Property<bool>("IsSmoker")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LandlordId")
+                    b.Property<int?>("LandlordId")
                         .HasColumnType("int");
 
                     b.Property<int?>("LengthOfTerm")
                         .HasColumnType("int");
+
+                    b.Property<string>("ListingName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PricePoint")
                         .HasColumnType("int");
@@ -221,6 +229,9 @@ namespace GMTK_Capstone.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<bool>("IsVerified")
                         .HasColumnType("bit");
 
@@ -235,6 +246,8 @@ namespace GMTK_Capstone.Migrations
                     b.HasIndex("AddressId");
 
                     b.HasIndex("ApplicationDetailsId");
+
+                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("Renters");
                 });
@@ -319,15 +332,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d9c3a097-f31b-4611-932a-461cb2b8c292",
-                            ConcurrencyStamp = "26a793f6-7eef-4371-a5cd-3626bea7d060",
+                            Id = "1de9b332-c3ea-4b29-b8c6-990cd4a50ae1",
+                            ConcurrencyStamp = "e4b9b93e-bdd3-4d86-9b52-b2273d96b944",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "aace6f03-2f5b-4916-8856-f07edbbaba2f",
-                            ConcurrencyStamp = "4ccfac27-7b40-42f9-98f0-90c58448587c",
+                            Id = "7297f8fa-0ba1-4141-8bf2-13d6417e0cca",
+                            ConcurrencyStamp = "bc9ad669-c99c-42f7-8149-225d5f9dc589",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });
@@ -509,6 +522,10 @@ namespace GMTK_Capstone.Migrations
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
                 });
 
             modelBuilder.Entity("GMTK_Capstone.Models.LandlordsRenter", b =>
@@ -536,9 +553,7 @@ namespace GMTK_Capstone.Migrations
 
                     b.HasOne("GMTK_Capstone.Models.Landlord", "Landlord")
                         .WithMany()
-                        .HasForeignKey("LandlordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LandlordId");
                 });
 
             modelBuilder.Entity("GMTK_Capstone.Models.Renter", b =>
@@ -554,6 +569,10 @@ namespace GMTK_Capstone.Migrations
                         .HasForeignKey("ApplicationDetailsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
                 });
 
             modelBuilder.Entity("GMTK_Capstone.Models.Review", b =>
