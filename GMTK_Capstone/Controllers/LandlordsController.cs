@@ -5,6 +5,7 @@ using GMTK_Capstone.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,12 +24,10 @@ namespace GMTK_Capstone.Controllers
         // GET: LandlordsController
         public ActionResult Index()
         {
-            //I want to be able to view listing addresses on a map
-            //I need to pass in listings to access their addresses
-            //In the razor view I will populate the markers on a map using .notation
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _repo.Landlord.GetLandlord(userId);
             var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address").Include("Landlord");
+            
             if (landlord == null)
             {
                 return RedirectToAction("Create");
@@ -169,6 +168,12 @@ namespace GMTK_Capstone.Controllers
             {
                 return View();
             }
+        }
+        public string AddressToJSON(Address address)
+        {
+            string JSONString = string.Empty;
+            JSONString = JsonConvert.SerializeObject(address);
+            return JSONString;
         }
     }
 }
