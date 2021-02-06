@@ -49,6 +49,11 @@
   box-sizing: border-box;
 }
 
+#float-text {
+    float: left;
+    width: 100%;
+    height: 50%;
+}
 html {
   font-family: sans-serif;
   line-height: 1.15;

@@ -24,6 +24,11 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\JokeProfilePic.jpg" />
   </ItemGroup>
 
 </Project>

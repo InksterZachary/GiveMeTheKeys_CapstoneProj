@@ -28,7 +28,7 @@ namespace GMTK_Capstone.Controllers
             //In the razor view I will populate the markers on a map using .notation
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _repo.Landlord.GetLandlord(userId);
-            var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address");
+            var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address").Include("Landlord");
             if (landlord == null)
             {
                 return RedirectToAction("Create");
