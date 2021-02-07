@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GMTK_Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210205163606_initial")]
+    [Migration("20210206222455_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,12 @@ namespace GMTK_Capstone.Migrations
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
 
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
@@ -195,6 +201,9 @@ namespace GMTK_Capstone.Migrations
                     b.Property<int>("PricePoint")
                         .HasColumnType("int");
 
+                    b.Property<string>("SerializedAddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("SqareFootage")
                         .HasColumnType("int");
 
@@ -332,15 +341,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1de9b332-c3ea-4b29-b8c6-990cd4a50ae1",
-                            ConcurrencyStamp = "e4b9b93e-bdd3-4d86-9b52-b2273d96b944",
+                            Id = "845393c0-ab59-4619-9736-10faaa7b72a1",
+                            ConcurrencyStamp = "c4a1269e-aa21-4b21-8939-d606797f8985",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "7297f8fa-0ba1-4141-8bf2-13d6417e0cca",
-                            ConcurrencyStamp = "bc9ad669-c99c-42f7-8149-225d5f9dc589",
+                            Id = "9d8fd2c7-05bf-4716-b8d9-e614619b238c",
+                            ConcurrencyStamp = "e3e2133c-618e-451c-b821-fb26e7afe073",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });

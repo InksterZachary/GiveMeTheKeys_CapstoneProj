@@ -16,7 +16,9 @@ namespace GMTK_Capstone.Migrations
                     StreetAddress = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
-                    Zipcode = table.Column<int>(nullable: false)
+                    Zipcode = table.Column<int>(nullable: false),
+                    Longitude = table.Column<float>(nullable: false),
+                    Latitude = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -280,7 +282,8 @@ namespace GMTK_Capstone.Migrations
                     AddressId = table.Column<int>(nullable: false),
                     Beds = table.Column<int>(nullable: false),
                     Baths = table.Column<int>(nullable: false),
-                    SqareFootage = table.Column<int>(nullable: false)
+                    SqareFootage = table.Column<int>(nullable: false),
+                    SerializedAddress = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -321,7 +324,7 @@ namespace GMTK_Capstone.Migrations
                         name: "FK_LandlordsRenters_Renters_RenterId",
                         column: x => x.RenterId,
                         principalTable: "Renters",
-                        principalColumn: "RenterId");
+                        principalColumn: "RenterId");//,
                         //onDelete: ReferentialAction.Cascade);
                 });
 
@@ -348,7 +351,7 @@ namespace GMTK_Capstone.Migrations
                         name: "FK_Reviews_Renters_RenterId",
                         column: x => x.RenterId,
                         principalTable: "Renters",
-                        principalColumn: "RenterId");
+                        principalColumn: "RenterId");//,
                         //onDelete: ReferentialAction.Cascade);
                 });
 
@@ -377,12 +380,12 @@ namespace GMTK_Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1de9b332-c3ea-4b29-b8c6-990cd4a50ae1", "e4b9b93e-bdd3-4d86-9b52-b2273d96b944", "Landlord", "LANDLORD" });
+                values: new object[] { "845393c0-ab59-4619-9736-10faaa7b72a1", "c4a1269e-aa21-4b21-8939-d606797f8985", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "7297f8fa-0ba1-4141-8bf2-13d6417e0cca", "bc9ad669-c99c-42f7-8149-225d5f9dc589", "Renter", "RENTER" });
+                values: new object[] { "9d8fd2c7-05bf-4716-b8d9-e614619b238c", "e3e2133c-618e-451c-b821-fb26e7afe073", "Renter", "RENTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

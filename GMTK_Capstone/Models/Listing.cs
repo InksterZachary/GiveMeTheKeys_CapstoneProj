@@ -33,5 +33,6 @@ namespace GMTK_Capstone.Models
         public int Beds { get; set; }
         public int Baths { get; set; }
         public int SqareFootage { get; set; }
+        public string SerializedAddress { get; set; }
     }
 }

@@ -22,17 +22,31 @@ namespace GMTK_Capstone.Controllers
             _repo = repo;
         }
         // GET: LandlordsController
-        public ActionResult Index()
+        public ActionResult Index(ListingAddressSerialized theVM)
         {
+            //I need to access the logged in Landlord id and serialize it to JSON
+            //serialized address sent into gelocate api 
+            //coords will be sent into gmaps api
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _repo.Landlord.GetLandlord(userId);
-            var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address").Include("Landlord");
-            
             if (landlord == null)
             {
                 return RedirectToAction("Create");
             }
-            return View(allListings);
+            if (_repo.Listing.GetAllListings(landlord.LandlordId).Count() == 0)
+            {
+                return RedirectToAction("CreateListing");
+            }
+            var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address").ToList();
+            foreach(var listing in allListings)
+            {
+                theVM.Addresses.Add(listing.Address);
+            }
+            theVM.Listings = allListings;
+            theVM.FirstName = landlord.FirstName;
+            theVM.LastName = landlord.LastName;
+            theVM.CompanyName = landlord.CompanyName;
+            return View(theVM);
         }
 
         // GET: LandlordsController/Details/5
@@ -107,6 +121,7 @@ namespace GMTK_Capstone.Controllers
             newListing.Address.City = theListing.City;
             newListing.Address.State = theListing.State;
             newListing.Address.Zipcode = int.Parse(theListing.Zipcode);
+            newListing.SerializedAddress = AddressToJSON(listingAddress);
             newListing.HomeType = theListing.HomeType;
             newListing.PricePoint = theListing.PricePoint;
             newListing.AvailabilityDate = theListing.AvailabilityDate;

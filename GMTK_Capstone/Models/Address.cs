@@ -14,5 +14,7 @@ namespace GMTK_Capstone.Models
         public string City { get; set; }
         public string State { get; set; }
         public int Zipcode { get; set; }
+        public float Longitude { get; set; }
+        public float Latitude { get; set; }
     }
 }
