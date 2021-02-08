@@ -1,0 +1,25 @@
+﻿@model GMTK_Capstone.ViewModels.ListingPhotosViewModel
+
+@{
+    ViewData["Title"] = "MyProperties";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>MyProperties</h1>
+
+<div>
+    <h4>ListingPhotosViewModel</h4>
+    <hr />
+    <dl class="row">
+        @foreach(var item in Model.Listings)
+        {
+            <div>
+                <h3>@item.ListingName</h3>
+            </div>
+        }
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

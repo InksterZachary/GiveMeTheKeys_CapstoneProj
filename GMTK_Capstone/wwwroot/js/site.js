@@ -7,8 +7,8 @@
 var map;
 var InforObj = [];
 var centerCords = {
-    lat: 44.500000,
-    lng: -89.500000
+    lat: 39.5501,
+    lng: 105.7821
 };
 var markersOnMap = [{
     placeName: "Australia (Uluru)",
@@ -23,28 +23,26 @@ window.onload = function () {
     initMap();
 };
 
-function addMarker() {
-        var contentString = '<div id="content"><h1>' +
-            '</h1><p>Lorem ipsum dolor sit amet, vix mutat posse suscipit id, vel ea tantas omittam detraxit.</p></div>';
+function addMarker(location) {
+    var contentString = '<div id="content"><h1>' +
+        '</h1><p>Lorem ipsum dolor sit amet, vix mutat posse suscipit id, vel ea tantas omittam detraxit.</p></div>';
 
-        const marker = new google.maps.Marker({
-            position: markersOnMap[i].LatLng[0],
-            map: map
-        });
+    const marker = new google.maps.Marker({
+        position: new google.maps.LatLng(location),
+        map: map
+    });
 
-        const infowindow = new google.maps.InfoWindow({
-            content: contentString,
-            maxWidth: 200
-        });
+    const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+        maxWidth: 200
+    });
 
-        marker.addListener('click', function () {
-            closeOtherInfo();
-            infowindow.open(marker.get('map'), marker);
-            InforObj[0] = infowindow;
-        });
-    }
+    marker.addListener('click', function () {
+        closeOtherInfo();
+        infowindow.open(marker.get('map'), marker);
+        InforObj[0] = infowindow;
+    });
 }
-
 function closeOtherInfo() {
     if (InforObj.length > 0) {
         /* detach the info-window from the marker ... undocumented in the API docs */
@@ -57,7 +55,7 @@ function closeOtherInfo() {
 }
 
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'),{
         zoom: 4,
         center: centerCords
     });
@@ -72,9 +70,14 @@ function geocode(location) {
         }
     })
         .then(function (response) {
-            addMarker();
+            addMarker(location);
         })
         .catch(function (error) {
             consol.log(error)
         });
 }
+//.latlngbounds
+//Postman tests
+//What object is coming back from query
+//Iterate through databse in JS to use locations as pins
+//

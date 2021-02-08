@@ -24,9 +24,6 @@ namespace GMTK_Capstone.Controllers
         // GET: LandlordsController
         public ActionResult Index(ListingAddressSerialized theVM)
         {
-            //I need to access the logged in Landlord id and serialize it to JSON
-            //serialized address sent into gelocate api 
-            //coords will be sent into gmaps api
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _repo.Landlord.GetLandlord(userId);
             if (landlord == null)
@@ -38,19 +35,32 @@ namespace GMTK_Capstone.Controllers
                 return RedirectToAction("CreateListing");
             }
             var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address").ToList();
-            foreach(var listing in allListings)
-            {
-                theVM.Addresses.Add(listing.Address);
-            }
+            var allAddresses = _repo.Address.GetAllAddress(landlord.LandlordId).ToList();
+            theVM.Addresses = allAddresses;
             theVM.Listings = allListings;
             theVM.FirstName = landlord.FirstName;
             theVM.LastName = landlord.LastName;
             theVM.CompanyName = landlord.CompanyName;
             return View(theVM);
         }
+        //GET
+        public ActionResult MyProperties()
+        {
+            ListingPhotosViewModel myListings = new ListingPhotosViewModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Landlord theLandlord = _repo.Landlord.GetLandlord(userId);
+            List<Listing> landlordsListings = _repo.Listing.FindAll().ToList();
+            myListings.Landlord = theLandlord;
+            myListings.Landlord.LandlordId = theLandlord.LandlordId;
+            myListings.Listings = landlordsListings;
+            //foreach(Listing listing in landlordsListings)
+            //{
 
+            //}
+            return View(myListings); 
+        }
         // GET: LandlordsController/Details/5
-        public ActionResult Details(int id) //My properties view here
+        public ActionResult Details() 
         {
             return View();
         }

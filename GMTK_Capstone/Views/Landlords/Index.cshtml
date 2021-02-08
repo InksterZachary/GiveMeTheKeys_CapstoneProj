@@ -23,13 +23,12 @@
             <div id="map"></div>
         </div>
     </div>
-    <script>
-        foreach(var item in @Model.Addresses) {
-            geocode(item);
-            AddMarker();
+    <script type="text/javascript">
+        var addressesAll = @Html.Raw(Json.Serialize(Model.Addresses));
+        for (var address in addressesAll) {
+            geocode(address);
         }
     </script>
-
 
 </body>
 @*@foreach (Listing item in Model)
