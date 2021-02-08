@@ -283,7 +283,8 @@ namespace GMTK_Capstone.Migrations
                     Beds = table.Column<int>(nullable: false),
                     Baths = table.Column<int>(nullable: false),
                     SqareFootage = table.Column<int>(nullable: false),
-                    SerializedAddress = table.Column<string>(nullable: true)
+                    SerializedAddress = table.Column<string>(nullable: true),
+                    ListingMainPhoto = table.Column<byte[]>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -356,6 +357,34 @@ namespace GMTK_Capstone.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    ImageId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MainImage = table.Column<byte[]>(nullable: true),
+                    ProfileImage = table.Column<byte[]>(nullable: true),
+                    LandlordId = table.Column<int>(nullable: false),
+                    ListingId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.ImageId);
+                    table.ForeignKey(
+                        name: "FK_Images_Landlords_LandlordId",
+                        column: x => x.LandlordId,
+                        principalTable: "Landlords",
+                        principalColumn: "LandlordId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Images_Listings_ListingId",
+                        column: x => x.ListingId,
+                        principalTable: "Listings",
+                        principalColumn: "ListingId");//,
+                        //onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WorkOrders",
                 columns: table => new
                 {
@@ -380,12 +409,12 @@ namespace GMTK_Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "845393c0-ab59-4619-9736-10faaa7b72a1", "c4a1269e-aa21-4b21-8939-d606797f8985", "Landlord", "LANDLORD" });
+                values: new object[] { "92e31dfd-2985-4e2e-b5c4-9c97a56cf1c1", "232204dc-470a-4933-bdef-95387de3cbca", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "9d8fd2c7-05bf-4716-b8d9-e614619b238c", "e3e2133c-618e-451c-b821-fb26e7afe073", "Renter", "RENTER" });
+                values: new object[] { "5a0a7234-9fb4-4705-a69e-8eed4a551f65", "3a23be30-74e4-4a47-b210-8146bab8a8ac", "Renter", "RENTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -425,6 +454,16 @@ namespace GMTK_Capstone.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_LandlordId",
+                table: "Images",
+                column: "LandlordId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_ListingId",
+                table: "Images",
+                column: "ListingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Landlords_AddressId",
@@ -503,6 +542,9 @@ namespace GMTK_Capstone.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "LandlordsRenters");

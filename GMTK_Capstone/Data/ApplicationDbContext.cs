@@ -23,6 +23,7 @@ namespace GMTK_Capstone.Data
         public DbSet<Renter> Renters { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<WorkOrder> WorkOrders { get; set; }
+        public DbSet<Image> Images { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

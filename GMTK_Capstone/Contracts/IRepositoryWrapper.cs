@@ -15,6 +15,7 @@ namespace GMTK_Capstone.Contracts
         IRenterRepository Renter { get; }
         IReviewRepository Review { get; }
         IWorkOrderRepository WorkOrder { get; }
+        IImageRepository Image { get; }
         void Save();
     }
 }

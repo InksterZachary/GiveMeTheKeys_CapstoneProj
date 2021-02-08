@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GMTK_Capstone.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,5 +24,8 @@ namespace GMTK_Capstone.ViewModels
         public bool UtilitiesIncluded { get; set; }
         public bool GoodCreditRequired { get; set; }
         public bool IsRented { get; set; }
+        public Image Image { get; set; }
+        public byte[] MainListingImage { get; set; }
+
     }
 }

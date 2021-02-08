@@ -88,6 +88,34 @@ namespace GMTK_Capstone.Migrations
                     b.ToTable("ApplicationsDetails");
                 });
 
+            modelBuilder.Entity("GMTK_Capstone.Models.Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("LandlordId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ListingId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("MainImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("ProfileImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("LandlordId");
+
+                    b.HasIndex("ListingId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("GMTK_Capstone.Models.Landlord", b =>
                 {
                     b.Property<int>("LandlordId")
@@ -192,6 +220,9 @@ namespace GMTK_Capstone.Migrations
 
                     b.Property<int?>("LengthOfTerm")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("ListingMainPhoto")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("ListingName")
                         .HasColumnType("nvarchar(max)");
@@ -339,15 +370,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "845393c0-ab59-4619-9736-10faaa7b72a1",
-                            ConcurrencyStamp = "c4a1269e-aa21-4b21-8939-d606797f8985",
+                            Id = "92e31dfd-2985-4e2e-b5c4-9c97a56cf1c1",
+                            ConcurrencyStamp = "232204dc-470a-4933-bdef-95387de3cbca",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "9d8fd2c7-05bf-4716-b8d9-e614619b238c",
-                            ConcurrencyStamp = "e3e2133c-618e-451c-b821-fb26e7afe073",
+                            Id = "5a0a7234-9fb4-4705-a69e-8eed4a551f65",
+                            ConcurrencyStamp = "3a23be30-74e4-4a47-b210-8146bab8a8ac",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });
@@ -520,6 +551,21 @@ namespace GMTK_Capstone.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("GMTK_Capstone.Models.Image", b =>
+                {
+                    b.HasOne("GMTK_Capstone.Models.Landlord", "Landlord")
+                        .WithMany()
+                        .HasForeignKey("LandlordId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GMTK_Capstone.Models.Listing", "Listing")
+                        .WithMany()
+                        .HasForeignKey("ListingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GMTK_Capstone.Models.Landlord", b =>

@@ -34,5 +34,6 @@ namespace GMTK_Capstone.Models
         public int Baths { get; set; }
         public int SqareFootage { get; set; }
         public string SerializedAddress { get; set; }
+        public byte[] ListingMainPhoto { get; set; }
     }
 }

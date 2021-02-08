@@ -17,6 +17,7 @@ namespace GMTK_Capstone.Data
         private IRenterRepository _renter;
         private IReviewRepository _review;
         private IWorkOrderRepository _workOrder;
+        private IImageRepository _image;
         public IAddressRepository Address
         {
             get
@@ -26,6 +27,17 @@ namespace GMTK_Capstone.Data
                     _address = new AddressRepository(_context);
                 }
                 return _address;
+            }
+        }
+        public IImageRepository Image
+        {
+            get
+            {
+                if(_image == null)
+                {
+                    _image = new ImageRepository(_context);
+                }
+                return _image;
             }
         }
         public IApplicationDetailsRepository ApplicationDetails

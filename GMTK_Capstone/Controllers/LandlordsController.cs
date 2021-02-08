@@ -2,6 +2,7 @@
 using GMTK_Capstone.Contracts;
 using GMTK_Capstone.Models;
 using GMTK_Capstone.ViewModels;
+using GMTK_Capstone.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace GMTK_Capstone.Controllers
         // GET: LandlordsController
         public ActionResult Index(ListingAddressSerialized theVM)
         {
+            //ApiKey.apiKey; - REMEMBER TO ADD TO GITIGNORE FILE
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var landlord = _repo.Landlord.GetLandlord(userId);
             if (landlord == null)
@@ -49,14 +51,10 @@ namespace GMTK_Capstone.Controllers
             ListingPhotosViewModel myListings = new ListingPhotosViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Landlord theLandlord = _repo.Landlord.GetLandlord(userId);
-            List<Listing> landlordsListings = _repo.Listing.FindAll().ToList();
+            List<Listing> landlordsListings = _repo.Listing.GetAllListings(theLandlord.LandlordId).ToList();
             myListings.Landlord = theLandlord;
             myListings.Landlord.LandlordId = theLandlord.LandlordId;
             myListings.Listings = landlordsListings;
-            //foreach(Listing listing in landlordsListings)
-            //{
-
-            //}
             return View(myListings); 
         }
         // GET: LandlordsController/Details/5
@@ -79,6 +77,7 @@ namespace GMTK_Capstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(LandlordAddressViewModel theVM)
         {
+            Image newImage = new Image();
             Address newAddress = new Address();
             Landlord newLandlord = new Landlord();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -95,6 +94,9 @@ namespace GMTK_Capstone.Controllers
             newAddress.City = theVM.City;
             newAddress.State = theVM.State;
             newAddress.Zipcode = int.Parse(theVM.ZipCode);
+            newImage.ProfileImage = theVM.ProfileImage;
+            newImage.Landlord = newLandlord;
+            newImage.LandlordId = newLandlord.LandlordId;
             _repo.Save();
             try
             {
@@ -119,7 +121,7 @@ namespace GMTK_Capstone.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Landlord landlord = _repo.Landlord.GetLandlord(userId);
-
+            Image thisImage = _repo.Image.GetImage(landlord.LandlordId);
             Listing newListing = new Listing();
             Address listingAddress = new Address();
 
@@ -143,6 +145,9 @@ namespace GMTK_Capstone.Controllers
             newListing.UtilitiesIncluded = theListing.UtilitiesIncluded;
             newListing.GoodCreditRequired = theListing.GoodCreditRequired;
             newListing.IsRented = theListing.IsRented;
+            thisImage.Listing = newListing;
+            thisImage.ListingId = newListing.ListingId;
+            newListing.ListingMainPhoto = theListing.MainListingImage;
             _repo.Save();
             try
             {
