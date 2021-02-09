@@ -284,7 +284,7 @@ namespace GMTK_Capstone.Migrations
                     Baths = table.Column<int>(nullable: false),
                     SqareFootage = table.Column<int>(nullable: false),
                     SerializedAddress = table.Column<string>(nullable: true),
-                    ListingMainPhoto = table.Column<byte[]>(nullable: true)
+                    ListingMainPhoto = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -362,26 +362,19 @@ namespace GMTK_Capstone.Migrations
                 {
                     ImageId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MainImage = table.Column<byte[]>(nullable: true),
-                    ProfileImage = table.Column<byte[]>(nullable: true),
-                    LandlordId = table.Column<int>(nullable: false),
-                    ListingId = table.Column<int>(nullable: false)
+                    ListingId = table.Column<int>(nullable: true),
+                    MainImage = table.Column<string>(nullable: true),
+                    ProfileImage = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Images", x => x.ImageId);
                     table.ForeignKey(
-                        name: "FK_Images_Landlords_LandlordId",
-                        column: x => x.LandlordId,
-                        principalTable: "Landlords",
-                        principalColumn: "LandlordId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Images_Listings_ListingId",
                         column: x => x.ListingId,
                         principalTable: "Listings",
-                        principalColumn: "ListingId");//,
-                        //onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ListingId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -409,12 +402,12 @@ namespace GMTK_Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "92e31dfd-2985-4e2e-b5c4-9c97a56cf1c1", "232204dc-470a-4933-bdef-95387de3cbca", "Landlord", "LANDLORD" });
+                values: new object[] { "d028f5ef-7ff3-4b03-99f4-b7cc1cb5ec84", "06c56937-325b-48c4-9c1f-672efeb360d2", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "5a0a7234-9fb4-4705-a69e-8eed4a551f65", "3a23be30-74e4-4a47-b210-8146bab8a8ac", "Renter", "RENTER" });
+                values: new object[] { "0a62e6dc-b8d4-4990-86d8-ce3968d325eb", "b48b0c1a-0307-463c-a7b0-cbb9c595689a", "Renter", "RENTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -454,11 +447,6 @@ namespace GMTK_Capstone.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_LandlordId",
-                table: "Images",
-                column: "LandlordId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Images_ListingId",

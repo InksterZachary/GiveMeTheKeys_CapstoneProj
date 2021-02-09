@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,6 +35,7 @@ namespace GMTK_Capstone.Models
         public int Baths { get; set; }
         public int SqareFootage { get; set; }
         public string SerializedAddress { get; set; }
-        public byte[] ListingMainPhoto { get; set; }
+        public string ListingMainPhoto { get; set; }
+        public List<Listing> Listings { get; set; }
     }
 }

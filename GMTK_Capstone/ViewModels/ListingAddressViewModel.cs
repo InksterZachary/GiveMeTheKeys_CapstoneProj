@@ -1,4 +1,5 @@
 ﻿using GMTK_Capstone.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,8 @@ namespace GMTK_Capstone.ViewModels
         public bool UtilitiesIncluded { get; set; }
         public bool GoodCreditRequired { get; set; }
         public bool IsRented { get; set; }
+        public IEnumerable<Listing> Listings { get; set; }
         public Image Image { get; set; }
-        public byte[] MainListingImage { get; set; }
-
+        public IFormFile ProfileImage { get; set; }
     }
 }

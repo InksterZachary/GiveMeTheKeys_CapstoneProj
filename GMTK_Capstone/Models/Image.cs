@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Drawing;
+using Microsoft.AspNetCore.Http;
 
 namespace GMTK_Capstone.Models
 {
@@ -11,15 +13,11 @@ namespace GMTK_Capstone.Models
     {
         [Key]
         public int ImageId { get; set; }
-        public byte[] MainImage { get; set; }
-        public byte[] ProfileImage { get; set; }
-
-        [ForeignKey("Landlord")]
-        public int LandlordId { get; set; }
-        public Landlord Landlord { get; set; }
 
         [ForeignKey("Listing")]
-        public int ListingId { get; set; }
+        public int? ListingId { get; set; }
         public Listing Listing { get; set; }
+        public string MainImage { get; set; }
+        public string ProfileImage { get; set; }
     }
 }

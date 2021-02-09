@@ -12,17 +12,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace GMTK_Capstone.Controllers
 {
     public class LandlordsController : Controller
     {
         private IRepositoryWrapper _repo;
-        public LandlordsController(IRepositoryWrapper repo)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public LandlordsController(IRepositoryWrapper repo, IWebHostEnvironment hostEnvironment)
         {
             _repo = repo;
+            webHostEnvironment = hostEnvironment;
         }
-        // GET: LandlordsController
         public ActionResult Index(ListingAddressSerialized theVM)
         {
             //ApiKey.apiKey; - REMEMBER TO ADD TO GITIGNORE FILE
@@ -48,13 +52,13 @@ namespace GMTK_Capstone.Controllers
         //GET
         public ActionResult MyProperties()
         {
-            ListingPhotosViewModel myListings = new ListingPhotosViewModel();
+            ListingAddressViewModel myListings = new ListingAddressViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Landlord theLandlord = _repo.Landlord.GetLandlord(userId);
-            List<Listing> landlordsListings = _repo.Listing.GetAllListings(theLandlord.LandlordId).ToList();
-            myListings.Landlord = theLandlord;
-            myListings.Landlord.LandlordId = theLandlord.LandlordId;
-            myListings.Listings = landlordsListings;
+            myListings.Listings = _repo.Listing.GetAllListings(theLandlord.LandlordId).ToList();
+            //myListings.Landlord = theLandlord;
+            //myListings.Landlord.LandlordId = theLandlord.LandlordId;
+            //myListings.Listings = landlordsListings;
             return View(myListings); 
         }
         // GET: LandlordsController/Details/5
@@ -75,13 +79,14 @@ namespace GMTK_Capstone.Controllers
         // POST: LandlordsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(LandlordAddressViewModel theVM)
+        public ActionResult Create(LandlordAddressViewModel theVM) 
         {
-            Image newImage = new Image();
+            //Image newImage = new Image();
             Address newAddress = new Address();
             Landlord newLandlord = new Landlord();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             newLandlord.IdentityUserId = userId;
+            //_repo.Image.CreateImage(newImage);
             _repo.Landlord.CreateLandlord(newLandlord);
             newLandlord.IdentityUserId = userId;
             newLandlord.FirstName = theVM.FirstName;
@@ -94,9 +99,7 @@ namespace GMTK_Capstone.Controllers
             newAddress.City = theVM.City;
             newAddress.State = theVM.State;
             newAddress.Zipcode = int.Parse(theVM.ZipCode);
-            newImage.ProfileImage = theVM.ProfileImage;
-            newImage.Landlord = newLandlord;
-            newImage.LandlordId = newLandlord.LandlordId;
+            //newImage.ProfileImage = theVM.ProfileImage;
             _repo.Save();
             try
             {
@@ -117,15 +120,21 @@ namespace GMTK_Capstone.Controllers
         //Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateListing(ListingAddressViewModel theListing)
+        public ActionResult CreateListing(ListingAddressViewModel theListing)//, IFormFile Image)
         {
+            string uniqueFileName = UploadedFile(theListing);
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Landlord landlord = _repo.Landlord.GetLandlord(userId);
-            Image thisImage = _repo.Image.GetImage(landlord.LandlordId);
             Listing newListing = new Listing();
             Address listingAddress = new Address();
-
+            Image thisImage = new Image();
+            _repo.Image.Create(thisImage);
             _repo.Listing.CreateListing(newListing);
+
+            thisImage.Listing = newListing;
+            thisImage.ListingId = newListing.ListingId;
+            thisImage.MainImage = uniqueFileName;
+            newListing.ListingMainPhoto = uniqueFileName;
             newListing.LandlordId = landlord.LandlordId;
             newListing.ListingName = theListing.ListingName;
             newListing.Address = listingAddress;
@@ -145,9 +154,6 @@ namespace GMTK_Capstone.Controllers
             newListing.UtilitiesIncluded = theListing.UtilitiesIncluded;
             newListing.GoodCreditRequired = theListing.GoodCreditRequired;
             newListing.IsRented = theListing.IsRented;
-            thisImage.Listing = newListing;
-            thisImage.ListingId = newListing.ListingId;
-            newListing.ListingMainPhoto = theListing.MainListingImage;
             _repo.Save();
             try
             {
@@ -157,6 +163,22 @@ namespace GMTK_Capstone.Controllers
             {
                 return View(e);
             }
+        }
+        private string UploadedFile(ListingAddressViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ProfileImage != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
         // GET: LandlordsController/Edit/5
         public ActionResult Edit(int id)

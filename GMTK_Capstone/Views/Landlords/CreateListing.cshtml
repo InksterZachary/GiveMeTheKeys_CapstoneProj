@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "CreateListing";
-    List<string> homes = (List<string>)ViewData["homeTypes"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -41,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="HomeType" class="control-label"></label>
-                <select asp-for="HomeType" class="form-control" asp-items="new SelectList(homes)"></select>
+                <input asp-for="HomeType" class="form-control" />
                 <span asp-validation-for="HomeType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -63,6 +62,16 @@
                 <label asp-for="Amenities" class="control-label"></label>
                 <input asp-for="Amenities" class="form-control" />
                 <span asp-validation-for="Amenities" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ProfileImage" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="ProfileImage" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -106,5 +115,11 @@
 </div>
 
 @section Scripts {
+    <script type="text/javascript">
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

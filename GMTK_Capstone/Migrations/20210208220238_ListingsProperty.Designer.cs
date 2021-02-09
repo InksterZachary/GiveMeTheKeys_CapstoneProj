@@ -4,14 +4,16 @@ using GMTK_Capstone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GMTK_Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210208220238_ListingsProperty")]
+    partial class ListingsProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -370,15 +372,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3edc2c1-a908-4d4e-91c3-70d1cfd5ba5d",
-                            ConcurrencyStamp = "3ea2e618-fa8d-4ae7-8548-2234d363bd2c",
+                            Id = "2d758723-aaf6-479a-a3fa-77ddfeb8212d",
+                            ConcurrencyStamp = "0f1db3da-f565-4d6d-8358-a4e118dfd35f",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "c18e202d-918e-42e6-98a2-f76c4a8f907c",
-                            ConcurrencyStamp = "a7b13f06-a222-4cd0-9ab7-45b1fc6d7d03",
+                            Id = "4f53e669-b982-40c6-bca2-df48096c3e2e",
+                            ConcurrencyStamp = "65948826-213f-4640-bb04-c08bec3c7f8e",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });

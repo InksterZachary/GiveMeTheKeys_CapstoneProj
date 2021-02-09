@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GMTK_Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210208181653_initial")]
+    [Migration("20210208213006_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,21 +97,16 @@ namespace GMTK_Capstone.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("LandlordId")
+                    b.Property<int?>("ListingId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ListingId")
-                        .HasColumnType("int");
+                    b.Property<string>("MainImage")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("MainImage")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("ProfileImage")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ImageId");
-
-                    b.HasIndex("LandlordId");
 
                     b.HasIndex("ListingId");
 
@@ -223,8 +218,8 @@ namespace GMTK_Capstone.Migrations
                     b.Property<int?>("LengthOfTerm")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("ListingMainPhoto")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("ListingMainPhoto")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ListingName")
                         .HasColumnType("nvarchar(max)");
@@ -372,15 +367,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "92e31dfd-2985-4e2e-b5c4-9c97a56cf1c1",
-                            ConcurrencyStamp = "232204dc-470a-4933-bdef-95387de3cbca",
+                            Id = "d028f5ef-7ff3-4b03-99f4-b7cc1cb5ec84",
+                            ConcurrencyStamp = "06c56937-325b-48c4-9c1f-672efeb360d2",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "5a0a7234-9fb4-4705-a69e-8eed4a551f65",
-                            ConcurrencyStamp = "3a23be30-74e4-4a47-b210-8146bab8a8ac",
+                            Id = "0a62e6dc-b8d4-4990-86d8-ce3968d325eb",
+                            ConcurrencyStamp = "b48b0c1a-0307-463c-a7b0-cbb9c595689a",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });
@@ -557,17 +552,9 @@ namespace GMTK_Capstone.Migrations
 
             modelBuilder.Entity("GMTK_Capstone.Models.Image", b =>
                 {
-                    b.HasOne("GMTK_Capstone.Models.Landlord", "Landlord")
-                        .WithMany()
-                        .HasForeignKey("LandlordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GMTK_Capstone.Models.Listing", "Listing")
                         .WithMany()
-                        .HasForeignKey("ListingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ListingId");
                 });
 
             modelBuilder.Entity("GMTK_Capstone.Models.Landlord", b =>
