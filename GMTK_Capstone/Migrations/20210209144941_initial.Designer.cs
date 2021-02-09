@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GMTK_Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210208213006_initial")]
+    [Migration("20210209144941_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -218,6 +218,9 @@ namespace GMTK_Capstone.Migrations
                     b.Property<int?>("LengthOfTerm")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ListingId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("ListingMainPhoto")
                         .HasColumnType("nvarchar(max)");
 
@@ -241,6 +244,8 @@ namespace GMTK_Capstone.Migrations
                     b.HasIndex("AddressId");
 
                     b.HasIndex("LandlordId");
+
+                    b.HasIndex("ListingId1");
 
                     b.ToTable("Listings");
                 });
@@ -367,15 +372,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d028f5ef-7ff3-4b03-99f4-b7cc1cb5ec84",
-                            ConcurrencyStamp = "06c56937-325b-48c4-9c1f-672efeb360d2",
+                            Id = "de8930c9-415d-4394-9232-446b38c5783f",
+                            ConcurrencyStamp = "5ae09eac-1b02-4e14-862c-a175a1deacdd",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "0a62e6dc-b8d4-4990-86d8-ce3968d325eb",
-                            ConcurrencyStamp = "b48b0c1a-0307-463c-a7b0-cbb9c595689a",
+                            Id = "091a81d4-47cf-46a3-a829-0d8d2e86ae9d",
+                            ConcurrencyStamp = "cb7be199-86ad-4c08-80fc-4c9925b703df",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });
@@ -596,6 +601,10 @@ namespace GMTK_Capstone.Migrations
                     b.HasOne("GMTK_Capstone.Models.Landlord", "Landlord")
                         .WithMany()
                         .HasForeignKey("LandlordId");
+
+                    b.HasOne("GMTK_Capstone.Models.Listing", null)
+                        .WithMany("Listings")
+                        .HasForeignKey("ListingId1");
                 });
 
             modelBuilder.Entity("GMTK_Capstone.Models.Renter", b =>

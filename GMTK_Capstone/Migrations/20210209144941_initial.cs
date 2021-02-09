@@ -284,7 +284,8 @@ namespace GMTK_Capstone.Migrations
                     Baths = table.Column<int>(nullable: false),
                     SqareFootage = table.Column<int>(nullable: false),
                     SerializedAddress = table.Column<string>(nullable: true),
-                    ListingMainPhoto = table.Column<string>(nullable: true)
+                    ListingMainPhoto = table.Column<string>(nullable: true),
+                    ListingId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -300,6 +301,12 @@ namespace GMTK_Capstone.Migrations
                         column: x => x.LandlordId,
                         principalTable: "Landlords",
                         principalColumn: "LandlordId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Listings_Listings_ListingId1",
+                        column: x => x.ListingId1,
+                        principalTable: "Listings",
+                        principalColumn: "ListingId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -402,12 +409,12 @@ namespace GMTK_Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "d028f5ef-7ff3-4b03-99f4-b7cc1cb5ec84", "06c56937-325b-48c4-9c1f-672efeb360d2", "Landlord", "LANDLORD" });
+                values: new object[] { "de8930c9-415d-4394-9232-446b38c5783f", "5ae09eac-1b02-4e14-862c-a175a1deacdd", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0a62e6dc-b8d4-4990-86d8-ce3968d325eb", "b48b0c1a-0307-463c-a7b0-cbb9c595689a", "Renter", "RENTER" });
+                values: new object[] { "091a81d4-47cf-46a3-a829-0d8d2e86ae9d", "cb7be199-86ad-4c08-80fc-4c9925b703df", "Renter", "RENTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -482,6 +489,11 @@ namespace GMTK_Capstone.Migrations
                 name: "IX_Listings_LandlordId",
                 table: "Listings",
                 column: "LandlordId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Listings_ListingId1",
+                table: "Listings",
+                column: "ListingId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Renters_AddressId",

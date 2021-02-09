@@ -370,15 +370,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3edc2c1-a908-4d4e-91c3-70d1cfd5ba5d",
-                            ConcurrencyStamp = "3ea2e618-fa8d-4ae7-8548-2234d363bd2c",
+                            Id = "de8930c9-415d-4394-9232-446b38c5783f",
+                            ConcurrencyStamp = "5ae09eac-1b02-4e14-862c-a175a1deacdd",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "c18e202d-918e-42e6-98a2-f76c4a8f907c",
-                            ConcurrencyStamp = "a7b13f06-a222-4cd0-9ab7-45b1fc6d7d03",
+                            Id = "091a81d4-47cf-46a3-a829-0d8d2e86ae9d",
+                            ConcurrencyStamp = "cb7be199-86ad-4c08-80fc-4c9925b703df",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });

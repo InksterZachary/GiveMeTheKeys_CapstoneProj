@@ -13,12 +13,9 @@
     <dl class="row">
         @foreach (var item in Model.Listings)
         {
-            //foreach (var listing in item.)
-            //{
-                <div class="card">
-                    <img src="~/images/@item.ListingMainPhoto" />
-                </div>
-            @*  *@}
+            <div class="card">
+                <img src="~/images/@item.ListingMainPhoto" />
+            </div>
         }
     </dl>
     @*<dl class="row">

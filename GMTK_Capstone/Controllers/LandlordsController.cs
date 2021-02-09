@@ -56,9 +56,6 @@ namespace GMTK_Capstone.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Landlord theLandlord = _repo.Landlord.GetLandlord(userId);
             myListings.Listings = _repo.Listing.GetAllListings(theLandlord.LandlordId).ToList();
-            //myListings.Landlord = theLandlord;
-            //myListings.Landlord.LandlordId = theLandlord.LandlordId;
-            //myListings.Listings = landlordsListings;
             return View(myListings); 
         }
         // GET: LandlordsController/Details/5
@@ -173,10 +170,8 @@ namespace GMTK_Capstone.Controllers
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.ProfileImage.CopyTo(fileStream);
-                }
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                model.ProfileImage.CopyTo(fileStream);
             }
             return uniqueFileName;
         }
