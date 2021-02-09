@@ -23,8 +23,6 @@ namespace GMTK_Capstone.Models
         [ForeignKey("Address")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
-        [ForeignKey("ApplicationDetails")]
-        public int ApplicationDetailsId { get; set; }
         public ApplicationDetails ApplicationDetails { get; set; }
 
     }

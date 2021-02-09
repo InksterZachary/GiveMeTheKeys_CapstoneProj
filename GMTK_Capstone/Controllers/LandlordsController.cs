@@ -20,7 +20,7 @@ namespace GMTK_Capstone.Controllers
 {
     public class LandlordsController : Controller
     {
-        private IRepositoryWrapper _repo;
+        private readonly IRepositoryWrapper _repo;
         private readonly IWebHostEnvironment webHostEnvironment;
         public LandlordsController(IRepositoryWrapper repo, IWebHostEnvironment hostEnvironment)
         {
@@ -56,6 +56,7 @@ namespace GMTK_Capstone.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Landlord theLandlord = _repo.Landlord.GetLandlord(userId);
             myListings.Listings = _repo.Listing.GetAllListings(theLandlord.LandlordId).ToList();
+            myListings.Landlord = theLandlord;
             return View(myListings); 
         }
         // GET: LandlordsController/Details/5
@@ -136,18 +137,20 @@ namespace GMTK_Capstone.Controllers
             thisImage.MainImage = uniqueFileName;
             newListing.ListingMainPhoto = uniqueFileName;
             newListing.Landlord = landlord;
-            newListing.LandlordId = landlord.LandlordId;
             newListing.ListingName = theListing.ListingName;
+            listingAddress.StreetAddress = theListing.StreetAddress;
+            listingAddress.City = theListing.City;
+            listingAddress.State = theListing.State;
+            listingAddress.Zipcode = int.Parse(theListing.Zipcode);
             newListing.Address = listingAddress;
-            newListing.Address.StreetAddress = theListing.StreetAddress;
-            newListing.Address.City = theListing.City;
-            newListing.Address.State = theListing.State;
-            newListing.Address.Zipcode = int.Parse(theListing.Zipcode);
             newListing.SerializedAddress = AddressToJSON(listingAddress);
             newListing.HomeType = theListing.HomeType;
             newListing.PricePoint = theListing.PricePoint;
             newListing.AvailabilityDate = theListing.AvailabilityDate;
             newListing.LengthOfTerm = theListing.LengthOfTerm;
+            newListing.Beds = theListing.NumberOfBeds;
+            newListing.Baths= theListing.NumberOfBaths;
+            newListing.SqareFootage = theListing.SquareFeet;
             newListing.Amenities = theListing.Amenities;
             newListing.DealActive = theListing.DealActive;
             newListing.IsSmoker = theListing.IsSmoker;

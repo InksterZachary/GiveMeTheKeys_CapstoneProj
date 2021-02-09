@@ -20,8 +20,6 @@ namespace GMTK_Capstone.Models
         public string CompanyName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        [ForeignKey("Address")]
-        public int AddressId { get; set; }
         public Address Address { get; set; }
 
     }

@@ -10,9 +10,8 @@ namespace GMTK_Capstone.ViewModels
     public class ListingAddressViewModel
     {
         public string ListingName { get; set; }
-        public Landlord landlord { get; set; }
-        public Address address { get; set; }
         public string StreetAddress { get; set; }
+        public Landlord Landlord { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
@@ -21,6 +20,9 @@ namespace GMTK_Capstone.ViewModels
         public int AvailabilityDate { get; set; }
         public int? LengthOfTerm { get; set; }
         public string Amenities { get; set; }
+        public int NumberOfBeds { get; set; }
+        public int NumberOfBaths { get; set; }
+        public int SquareFeet { get; set; }
         public bool DealActive { get; set; }
         public bool IsSmoker { get; set; }
         public bool HasPet { get; set; }

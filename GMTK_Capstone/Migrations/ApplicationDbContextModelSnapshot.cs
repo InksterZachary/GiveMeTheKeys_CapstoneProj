@@ -118,7 +118,7 @@ namespace GMTK_Capstone.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("CompanyName")
@@ -177,7 +177,7 @@ namespace GMTK_Capstone.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Amenities")
@@ -258,7 +258,7 @@ namespace GMTK_Capstone.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ApplicationDetailsId")
+                    b.Property<int?>("ApplicationDetailsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -370,15 +370,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "19f82f15-43b2-41f5-ab76-07b06c8fc100",
-                            ConcurrencyStamp = "29129b9c-935f-49c0-9d06-fd0f4281d79e",
+                            Id = "1b5d6d78-407b-45bf-b707-e2a021a228b5",
+                            ConcurrencyStamp = "4be0182c-2b0e-4671-bb00-6e350ad3742d",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "a240cfc8-2dc6-4f7c-97a0-6b1b9810d0bd",
-                            ConcurrencyStamp = "2b16bab9-4905-4a1c-9907-7253bed1b723",
+                            Id = "dda579b0-84d7-4401-973b-4f8fc3b44995",
+                            ConcurrencyStamp = "82eb89e1-1eac-4b8b-8710-8554b0cb4028",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });
@@ -564,9 +564,7 @@ namespace GMTK_Capstone.Migrations
                 {
                     b.HasOne("GMTK_Capstone.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
@@ -592,9 +590,7 @@ namespace GMTK_Capstone.Migrations
                 {
                     b.HasOne("GMTK_Capstone.Models.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AddressId");
 
                     b.HasOne("GMTK_Capstone.Models.Landlord", "Landlord")
                         .WithMany()
@@ -615,9 +611,7 @@ namespace GMTK_Capstone.Migrations
 
                     b.HasOne("GMTK_Capstone.Models.ApplicationDetails", "ApplicationDetails")
                         .WithMany()
-                        .HasForeignKey("ApplicationDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationDetailsId");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
