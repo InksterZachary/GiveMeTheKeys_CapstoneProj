@@ -7,8 +7,8 @@
 var map;
 var InforObj = [];
 var centerCords = {
-    lat: 39.5501,
-    lng: 105.7821
+    lat: 39.113014,
+    lng: -105.358887
 };
 var markersOnMap = [{
     placeName: "Australia (Uluru)",
@@ -23,12 +23,12 @@ window.onload = function () {
     initMap();
 };
 
-function addMarker(location) {
+function addMarker() {
     var contentString = '<div id="content"><h1>' +
         '</h1><p>Lorem ipsum dolor sit amet, vix mutat posse suscipit id, vel ea tantas omittam detraxit.</p></div>';
 
     const marker = new google.maps.Marker({
-        position: new google.maps.LatLng(location),
+        position: new google.maps.LatLng(),
         map: map
     });
 
@@ -62,7 +62,7 @@ function initMap() {
 }
 
 
-function geocode(location) {
+function geocode() {
     axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
         params: {
             address: location,
@@ -70,7 +70,6 @@ function geocode(location) {
         }
     })
         .then(function (response) {
-            addMarker(location);
         })
         .catch(function (error) {
             consol.log(error)
