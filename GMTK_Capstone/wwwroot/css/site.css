@@ -48,6 +48,13 @@
 *::after {
   box-sizing: border-box;
 }
+#chart_container {
+    height: 400px; 
+    width: 400px; 
+    border: 1px,solid,#ddd;
+    padding:1px;
+    border-radius: 4px;
+}
 
 #float-text {
     float: left;

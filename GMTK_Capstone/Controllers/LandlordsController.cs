@@ -48,6 +48,14 @@ namespace GMTK_Capstone.Controllers
             }
             var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address").ToList();
             var allAddresses = _repo.Address.GetAllAddress(landlord.LandlordId).ToList();
+            List<int> prices = new List<int>();
+            foreach(var item in allListings)
+            {
+                prices.Add(allListings.Count(x => x.PricePoint == item.PricePoint));
+            }
+            var rep = prices;
+            ViewBag.AGES = allListings;
+            ViewBag.REP = prices.ToList();
             theVM.Addresses = allAddresses;
             theVM.Listings = allListings;
             theVM.FirstName = landlord.FirstName;

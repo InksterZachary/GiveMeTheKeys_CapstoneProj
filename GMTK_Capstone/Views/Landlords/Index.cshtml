@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <body class="text-center">
     <div class="row" style="padding-bottom:5%;">
         <div class="col-md-4" style="padding:5%; margin: .5em auto; font-family:'Trirong'; font-size:xx-large; text-shadow: 2px 2px 4px #000000;">
@@ -22,12 +21,44 @@
         <div class="col-md-6" style="height:400px;">
             <div id="map"></div>
         </div>
+        <div class="col-md-6">
+            <div id="chart_container">
+                <canvas id="bar_chart"></canvas>
+            </div>
+        </div>
     </div>
-    <script type="text/javascript">
-        var addressesAll = @Html.Raw(Json.Serialize(Model.Addresses));
-        for (var address in addressesAll) {
-            geocode(address);
-        }
+    <script>
+        var repArray = @Html.Raw(Json.Serialize(ViewBag.REP));
+        var ages = @Html.Raw(Json.Serialize(ViewBag.AGES));
+
+        //var ctx = $("bar_chart");
+        var ctx = document.getElementById('bar_chart');
+        var barChart = new Chart(ctx,{
+
+            type: 'bar',
+            data: {
+                labels: ages,
+                datasets: [{
+                    label: "Property Cash Flow",
+                    data: repArray,
+                    backgroundColor: ["rgba(242,166,54,.5)", "rgba(145,65,72,.5)", "(74,25,92,.5)"],
+                    borderColor: ["rgb(242,166,54)", "rgb(145,65,72)", "rgb(74,25,92)"],
+                    borderWidth:1
+                }]
+            },
+
+            options: {
+                maintainAspectRatio: false,
+                scales: { xAxes: [{ ticks: { beginAtZero: true } }] },
+                legend: { display: false },
+
+            },
+
+        });
+
+        //for (var address in addressesAll) {
+        //    geocode(address);
+        //}
     </script>
     <!--Get lat and long in model before view-->
 </body>
