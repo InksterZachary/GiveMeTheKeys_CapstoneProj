@@ -276,6 +276,9 @@ namespace GMTK_Capstone.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("HasApplied")
+                        .HasColumnType("bit");
+
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -379,15 +382,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2aa16dbc-050b-47be-a678-e4dd8e08d062",
-                            ConcurrencyStamp = "415edfdc-c717-4120-957d-1b81f2024e83",
+                            Id = "fb3a5711-2ca1-40d7-8b3d-5e96b427f947",
+                            ConcurrencyStamp = "2891a828-27ff-4ce0-9e43-4b7e8c14d90d",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "c590afe6-1e7b-475f-b8f3-f30cd6268ad0",
-                            ConcurrencyStamp = "eee1275a-1c4d-42d3-9e99-885e0cdd4667",
+                            Id = "3459ca37-ca60-4845-8c78-6e9809b9678b",
+                            ConcurrencyStamp = "8adc4932-73f3-47c2-b5fe-734d5d0f7850",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });

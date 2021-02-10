@@ -235,6 +235,7 @@ namespace GMTK_Capstone.Migrations
                     Email = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     IsVerified = table.Column<bool>(nullable: false),
+                    HasApplied = table.Column<bool>(nullable: false),
                     AddressId = table.Column<int>(nullable: false),
                     ApplicationDetailsId = table.Column<int>(nullable: true)
                 },
@@ -412,12 +413,12 @@ namespace GMTK_Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2aa16dbc-050b-47be-a678-e4dd8e08d062", "415edfdc-c717-4120-957d-1b81f2024e83", "Landlord", "LANDLORD" });
+                values: new object[] { "fb3a5711-2ca1-40d7-8b3d-5e96b427f947", "2891a828-27ff-4ce0-9e43-4b7e8c14d90d", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c590afe6-1e7b-475f-b8f3-f30cd6268ad0", "eee1275a-1c4d-42d3-9e99-885e0cdd4667", "Renter", "RENTER" });
+                values: new object[] { "3459ca37-ca60-4845-8c78-6e9809b9678b", "8adc4932-73f3-47c2-b5fe-734d5d0f7850", "Renter", "RENTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
