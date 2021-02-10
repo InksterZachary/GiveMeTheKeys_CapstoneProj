@@ -49,7 +49,24 @@ namespace GMTK_Capstone.Controllers
             theVM.CompanyName = landlord.CompanyName;
             return View(theVM);
         }
-        //GET
+        //get
+        public ActionResult CreateWorkOrder()
+        {
+            return View();
+        }
+        //post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateWorkOrder(int listingId)
+        {
+            WorkOrder workOrder = new WorkOrder();
+            _repo.WorkOrder.Create(workOrder);
+            Listing thisListing = _repo.Listing.GetListing(listingId);
+            workOrder.Listing = thisListing;
+            workOrder.ListingId = thisListing.ListingId;
+            _repo.Save();
+            return RedirectToAction("MyProperties");
+        }
         public ActionResult MyProperties()
         {
             ListingAddressViewModel myListings = new ListingAddressViewModel();
@@ -121,7 +138,7 @@ namespace GMTK_Capstone.Controllers
         //Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateListing(ListingAddressViewModel theListing)//, IFormFile Image)
+        public ActionResult CreateListing(ListingAddressViewModel theListing)
         {
             string uniqueFileName = UploadedFile(theListing);
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -182,24 +199,45 @@ namespace GMTK_Capstone.Controllers
             }
             return uniqueFileName;
         }
-        // GET: LandlordsController/Edit/5
-        public ActionResult Edit(int id)
+        private string UploadedFileElsewhere(Listing model) //come back to this (Probably a problem in the view) not allowing me to click on the upload file form
         {
-            return View();
+            string uniqueFileName = null;
+            var stream = new MemoryStream(model.ProfileImage);
+            IFormFile file = new FormFile(stream, 0, stream.Length, "file", "profileImage");
+            if (stream != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                file.CopyTo(fileStream);
+            }
+            return uniqueFileName;
+        }
+        // GET: LandlordsController/Edit/5
+        public ActionResult Edit(int iD)
+        {
+            Listing thisListing = _repo.Listing.GetListing(iD);
+            return View(thisListing);
         }
 
         // POST: LandlordsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Listing theListing) //EYES COME TO THIS LINE
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                //string uniqueFileName = UploadedFile(theListing);
+                var randVar = theListing.ListingMainPhoto; //theListing.ListingMainPhoto is showing in the db but doesnt pass through here?
+                _repo.Listing.Update(theListing);
+                theListing.ListingMainPhoto = randVar;
+                _repo.Save();
+                return RedirectToAction(nameof(MyProperties));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                return View(e);
             }
         }
 

@@ -1,0 +1,118 @@
+﻿@model GMTK_Capstone.Models.Listing
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Edit @Model.ListingName</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <input type="hidden" asp-for="ListingId" />
+            <div class="form-group">
+                <label asp-for="ListingName" class="control-label"></label>
+                <input asp-for="ListingName" class="form-control" />
+                <span asp-validation-for="ListingName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HomeType" class="control-label"></label>
+                <input asp-for="HomeType" class="form-control" />
+                <span asp-validation-for="HomeType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PricePoint" class="control-label"></label>
+                <input asp-for="PricePoint" class="form-control" />
+                <span asp-validation-for="PricePoint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AvailabilityDate" class="control-label"></label>
+                <input asp-for="AvailabilityDate" class="form-control" />
+                <span asp-validation-for="AvailabilityDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LengthOfTerm" class="control-label"></label>
+                <input asp-for="LengthOfTerm" class="form-control" />
+                <span asp-validation-for="LengthOfTerm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amenities" class="control-label"></label>
+                <input asp-for="Amenities" class="form-control" />
+                <span asp-validation-for="Amenities" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Beds" class="control-label"></label>
+                <input asp-for="Beds" class="form-control" />
+                <span asp-validation-for="Beds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Baths" class="control-label"></label>
+                <input asp-for="Baths" class="form-control" />
+                <span asp-validation-for="Baths" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SqareFootage" class="control-label"></label>
+                <input asp-for="SqareFootage" class="form-control" />
+                <span asp-validation-for="SqareFootage" class="text-danger"></span>
+            </div>
+            @*<div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ProfileImage" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="ProfileImage" class="custom-file-input" name="file" id="file">
+                        <label class="custom-file-label" for="file">Choose file</label>
+                        <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>*@
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="DealActive" /> @Html.DisplayNameFor(model => model.DealActive)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsSmoker" /> @Html.DisplayNameFor(model => model.IsSmoker)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="HasPet" /> @Html.DisplayNameFor(model => model.HasPet)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="UtilitiesIncluded" /> @Html.DisplayNameFor(model => model.UtilitiesIncluded)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="GoodCreditRequired" /> @Html.DisplayNameFor(model => model.GoodCreditRequired)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsRented" /> @Html.DisplayNameFor(model => model.IsRented)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @*<script type="text/javascript">
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>*@
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -6,19 +6,19 @@
 }
 <body class="text-center">
     <h1>My Properties</h1>
-
     <div>
         <hr />
         <div class="row flex-lg-wrap">
             @foreach (var item in Model.Listings)
-             {
+            {
                 <div class="col-md-3" style="padding-top:2%; color:#121013;">
+                    <h4>@item.ListingName</h4>
                     <div class="flex">
                         <div class="px-3">
                             <div style="background-color:#f7f6e7;" class="shadow-xl rounded-lg overflow-hidden">
                                 <div class="p-4">
                                     <div class="flex justify-content-center">
-                                        <a href="/Landlords/Edit"><img class="card" style="max-height:100%; cursor:pointer; max-width:100%;" src="~/images/@item.ListingMainPhoto" /></a>
+                                        <a asp-action="Edit" asp-route-id="@item.ListingId"><img class="card" style="max-height:100%; cursor:pointer; max-width:100%;" src="~/images/@item.ListingMainPhoto" /></a>
                                     </div>
                                 </div>
                                 <div>
@@ -31,18 +31,23 @@
                                     </ul>
                                 </div>
                                 <div class="px-4 pt-3 pb-4 ">
-                                    <div style="text-decoration:underline;">Realtor</div>
+                                    <div style="text-decoration:underline; border-top:solid;border-top-color:antiquewhite;">Realtor</div>
                                     <div class="flex items-center pt-2">
                                        <div>
-                                            <p>@Model.Landlord.FirstName @Model.Landlord.LastName</p>
-                                            <p>@Model.Landlord.PhoneNumber</p>
+                                           <p>@Model.Landlord.FirstName @Model.Landlord.LastName <br />@Model.Landlord.PhoneNumber</p>
+                                            
                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            @*<div style="text-align:right;">
-                                <a href="/Landlords/Edit">Edit</a>
-                            </div>*@
+                            @if(item.IsRented == false)
+                            {
+                                <p style="color:red; font-size:small;"><a href="/Landlords/CreateWorkOrder">Add Work Order</a> | ON THE MARKET</p>
+                            }
+                            else
+                            {
+                                <p style="color:green; font-size:small;"><a href="/Landlords/CreateWorkOrder">Add Work Order</a> | OCCUPIED</p>
+                            }
                         </div>
                     </div>
                 </div>
@@ -50,7 +55,7 @@
         </div>
     </div>
     <div>
-        @Html.ActionLink("CreateListing", "CreateListing")|
+        @Html.ActionLink("CreateListing", "CreateListing") |
         <a asp-action="Index">Back</a>
     </div>
 </body>

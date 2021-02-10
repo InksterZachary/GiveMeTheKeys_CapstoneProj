@@ -228,6 +228,9 @@ namespace GMTK_Capstone.Migrations
                     b.Property<int>("PricePoint")
                         .HasColumnType("int");
 
+                    b.Property<byte[]>("ProfileImage")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("SerializedAddress")
                         .HasColumnType("nvarchar(max)");
 
@@ -370,15 +373,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1b5d6d78-407b-45bf-b707-e2a021a228b5",
-                            ConcurrencyStamp = "4be0182c-2b0e-4671-bb00-6e350ad3742d",
+                            Id = "eec0816e-a004-4cdb-bfc9-f0f72f346f6e",
+                            ConcurrencyStamp = "a19516a3-b91d-4099-ab6a-13ffc7a3166f",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "dda579b0-84d7-4401-973b-4f8fc3b44995",
-                            ConcurrencyStamp = "82eb89e1-1eac-4b8b-8710-8554b0cb4028",
+                            Id = "1eae4719-69ea-4d96-8c73-37dde3b879c5",
+                            ConcurrencyStamp = "46d4becb-b661-4f6b-9dc1-a996f16d121b",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });
@@ -636,7 +639,7 @@ namespace GMTK_Capstone.Migrations
             modelBuilder.Entity("GMTK_Capstone.Models.WorkOrder", b =>
                 {
                     b.HasOne("GMTK_Capstone.Models.Listing", "Listing")
-                        .WithMany()
+                        .WithMany("WorkOrders")
                         .HasForeignKey("ListingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
