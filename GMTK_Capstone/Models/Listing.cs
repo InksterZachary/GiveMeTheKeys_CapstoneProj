@@ -30,6 +30,7 @@ namespace GMTK_Capstone.Models
         public int Beds { get; set; }
         public int Baths { get; set; }
         public int SqareFootage { get; set; }
+        public bool HasVerification { get; set; }
         public string SerializedAddress { get; set; }
         public string ListingMainPhoto { get; set; }
         public List<Listing> Listings { get; set; }

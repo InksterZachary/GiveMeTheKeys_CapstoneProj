@@ -8,7 +8,8 @@ namespace GMTK_Capstone.ViewModels
 {
     public class ListingWorkOrderViewModel
     {
-        //public Listing Listing { get; set; }
+        public Listing Listing { get; set; }
+        public int ListingId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsCompleted { get; set; }

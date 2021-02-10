@@ -1,4 +1,5 @@
 ﻿using GMTK_Capstone.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,6 @@ namespace GMTK_Capstone.ViewModels
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        //public byte[] ProfileImage { get; set; }
+        public IFormFile ProfileImage { get; set; }
     }
 }

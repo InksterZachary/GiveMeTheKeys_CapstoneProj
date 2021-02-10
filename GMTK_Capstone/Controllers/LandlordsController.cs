@@ -27,13 +27,7 @@ namespace GMTK_Capstone.Controllers
             _repo = repo;
             webHostEnvironment = hostEnvironment;
         }
-        //public ActionResult ChartFromEf()
-        //{
-        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    var landlord = _repo.Landlord.GetLandlord(userId);
-        //    var data = _repo.Listing.GetAllListings(landlord.LandlordId).ToList(); 
-        //}
-        public ActionResult Index(ListingAddressSerialized theVM)
+        public ActionResult Index()
         {
             //ApiKey.apiKey; - REMEMBER TO ADD TO GITIGNORE FILE
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -48,25 +42,28 @@ namespace GMTK_Capstone.Controllers
             }
             var allListings = _repo.Listing.GetAllListings(landlord.LandlordId).Include("Address").ToList();
             var allAddresses = _repo.Address.GetAllAddress(landlord.LandlordId).ToList();
+            var allListingNames = new List<string>();
             List<int> prices = new List<int>();
             foreach(var item in allListings)
             {
-                prices.Add(allListings.Count(x => x.PricePoint == item.PricePoint));
+                //prices.Add(allListings.Count(x => x.PricePoint == item.PricePoint));
+                allListingNames.Add(item.ListingName);
+                prices.Add(item.PricePoint);
             }
             var rep = prices;
-            ViewBag.AGES = allListings;
+            ViewBag.AGES = allListingNames;
             ViewBag.REP = prices.ToList();
-            theVM.Addresses = allAddresses;
-            theVM.Listings = allListings;
-            theVM.FirstName = landlord.FirstName;
-            theVM.LastName = landlord.LastName;
-            theVM.CompanyName = landlord.CompanyName;
-            return View(theVM);
+
+            return View(landlord);
         }
         //get
-        public ActionResult CreateWorkOrder()
+        public ActionResult CreateWorkOrder(int iD)
         {
-            return View(new ListingWorkOrderViewModel());
+            var theListing = _repo.Listing.GetListing(iD);
+            ListingWorkOrderViewModel theVm = new ListingWorkOrderViewModel();
+            theVm.Listing = theListing;
+            theVm.ListingId = theListing.ListingId;
+            return View(theVm);
         }
         //post
         [HttpPost]
@@ -74,10 +71,12 @@ namespace GMTK_Capstone.Controllers
         public ActionResult CreateWorkOrder(ListingWorkOrderViewModel theVM)
         {
             WorkOrder wo = new WorkOrder();
+            var thisListing = _repo.Listing.GetListing(theVM.ListingId);
             _repo.WorkOrder.CreateWorkOrder(wo);
             wo.Name = theVM.Name;
             wo.Description = theVM.Description;
             wo.IsCompleted = theVM.IsCompleted;
+            wo.ListingId = theVM.ListingId;
             _repo.Save();
             return RedirectToAction("MyProperties");
         }
@@ -114,12 +113,13 @@ namespace GMTK_Capstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(LandlordAddressViewModel theVM) 
         {
-            //Image newImage = new Image();
+            string uniqueFileName = UploadedFile(theVM);
+            Image newImage = new Image();
             Address newAddress = new Address();
             Landlord newLandlord = new Landlord();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             newLandlord.IdentityUserId = userId;
-            //_repo.Image.CreateImage(newImage);
+            _repo.Image.CreateImage(newImage);
             _repo.Landlord.CreateLandlord(newLandlord);
             newLandlord.IdentityUserId = userId;
             newLandlord.FirstName = theVM.FirstName;
@@ -132,7 +132,8 @@ namespace GMTK_Capstone.Controllers
             newAddress.City = theVM.City;
             newAddress.State = theVM.State;
             newAddress.Zipcode = int.Parse(theVM.ZipCode);
-            //newImage.ProfileImage = theVM.ProfileImage;
+            newImage.ProfileImage = uniqueFileName;
+            newLandlord.ProfileImage = uniqueFileName;
             _repo.Save();
             try
             {
@@ -202,6 +203,20 @@ namespace GMTK_Capstone.Controllers
             {
                 return View(e);
             }
+        }
+        private string UploadedFile(LandlordAddressViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ProfileImage != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                model.ProfileImage.CopyTo(fileStream);
+            }
+            return uniqueFileName;
         }
         private string UploadedFile(ListingAddressViewModel model)
         {
