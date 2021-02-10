@@ -16,5 +16,6 @@ namespace GMTK_Capstone.Data
         public void CreateWorkOrder(WorkOrder workOrder) => Create(workOrder);
         public void EditWorkOrder(WorkOrder workOrder) => Update(workOrder);
         public void DeleteWorkOrder(WorkOrder workOrder) => Delete(workOrder);
+        public IQueryable<WorkOrder> GetAllWorkOrders(int listingId) => FindByCondition(c => c.ListingId.Equals(listingId));
     }
 }

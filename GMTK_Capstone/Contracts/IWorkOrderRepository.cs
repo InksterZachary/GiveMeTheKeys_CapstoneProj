@@ -9,7 +9,7 @@ namespace GMTK_Capstone.Contracts
     public interface IWorkOrderRepository : IRepositoryBase<WorkOrder>
     {
         WorkOrder GetWorkOrder(int workOrderId);
-
+        IQueryable<WorkOrder> GetAllWorkOrders(int listingId);
         void CreateWorkOrder(WorkOrder workOrder);
         void EditWorkOrder(WorkOrder workOrder);
         void DeleteWorkOrder(WorkOrder workorder);

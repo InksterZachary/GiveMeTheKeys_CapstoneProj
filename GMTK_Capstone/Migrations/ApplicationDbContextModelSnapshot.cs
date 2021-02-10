@@ -204,6 +204,9 @@ namespace GMTK_Capstone.Migrations
                     b.Property<bool>("HasPet")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("HasVerification")
+                        .HasColumnType("bit");
+
                     b.Property<string>("HomeType")
                         .HasColumnType("nvarchar(max)");
 
@@ -376,15 +379,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4c11d934-e257-4037-bab9-fb94f460bf10",
-                            ConcurrencyStamp = "66baa39b-a904-4421-8086-94a82f1cd3ee",
+                            Id = "2aa16dbc-050b-47be-a678-e4dd8e08d062",
+                            ConcurrencyStamp = "415edfdc-c717-4120-957d-1b81f2024e83",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "72dd6d8f-4f46-4af9-a2a6-7407ea7297eb",
-                            ConcurrencyStamp = "b87a04e6-c5b7-45d1-bb83-0723fafcbd29",
+                            Id = "c590afe6-1e7b-475f-b8f3-f30cd6268ad0",
+                            ConcurrencyStamp = "eee1275a-1c4d-42d3-9e99-885e0cdd4667",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });

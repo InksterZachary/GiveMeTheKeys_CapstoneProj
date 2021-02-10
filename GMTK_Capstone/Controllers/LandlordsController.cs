@@ -63,15 +63,16 @@ namespace GMTK_Capstone.Controllers
             ListingWorkOrderViewModel theVm = new ListingWorkOrderViewModel();
             theVm.Listing = theListing;
             theVm.ListingId = theListing.ListingId;
+            theVm.Listing.WorkOrders = theListing.WorkOrders;
             return View(theVm);
         }
         //post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateWorkOrder(ListingWorkOrderViewModel theVM)
+        public ActionResult CreateWorkOrder(ListingWorkOrderViewModel theVM) //somewhere the List<WorkOrder is becoming null. Workorder still tied to listing though
         {
             WorkOrder wo = new WorkOrder();
-            var thisListing = _repo.Listing.GetListing(theVM.ListingId);
+            theVM.Listing = _repo.Listing.GetListing(theVM.ListingId);
             _repo.WorkOrder.CreateWorkOrder(wo);
             wo.Name = theVM.Name;
             wo.Description = theVM.Description;
@@ -91,6 +92,10 @@ namespace GMTK_Capstone.Controllers
             Landlord theLandlord = _repo.Landlord.GetLandlord(userId);
             myListings.Listings = _repo.Listing.GetAllListings(theLandlord.LandlordId).ToList();
             myListings.Landlord = theLandlord;
+            foreach(var item in myListings.Listings)
+            {
+                item.WorkOrders = _repo.WorkOrder.GetAllWorkOrders(item.ListingId).ToList();
+            }
             return View(myListings); 
         }
         // GET: LandlordsController/Details/5
@@ -194,6 +199,7 @@ namespace GMTK_Capstone.Controllers
             newListing.UtilitiesIncluded = theListing.UtilitiesIncluded;
             newListing.GoodCreditRequired = theListing.GoodCreditRequired;
             newListing.IsRented = theListing.IsRented;
+            newListing.WorkOrders = new List<WorkOrder>();
             _repo.Save();
             try
             {
