@@ -42,7 +42,7 @@
                             </div>
                             @if(item.IsRented == false)
                             {
-                                <p style="color:red; font-size:small;"><a href="/Landlords/CreateWorkOrder">Add Work Order</a> | ON THE MARKET</p>
+                                <p style="color:red; font-size:small;"><a asp-action="CreateWorkOrder" asp-route-id="@item.ListingId">Add Work Order</a> | ON THE MARKET</p>
                             }
                             else
                             {

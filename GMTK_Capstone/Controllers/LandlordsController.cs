@@ -27,6 +27,12 @@ namespace GMTK_Capstone.Controllers
             _repo = repo;
             webHostEnvironment = hostEnvironment;
         }
+        //public ActionResult ChartFromEf()
+        //{
+        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var landlord = _repo.Landlord.GetLandlord(userId);
+        //    var data = _repo.Listing.GetAllListings(landlord.LandlordId).ToList(); 
+        //}
         public ActionResult Index(ListingAddressSerialized theVM)
         {
             //ApiKey.apiKey; - REMEMBER TO ADD TO GITIGNORE FILE
@@ -52,23 +58,27 @@ namespace GMTK_Capstone.Controllers
         //get
         public ActionResult CreateWorkOrder()
         {
-            return View();
+            return View(new ListingWorkOrderViewModel());
         }
         //post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateWorkOrder(int listingId)
+        public ActionResult CreateWorkOrder(ListingWorkOrderViewModel theVM)
         {
-            WorkOrder workOrder = new WorkOrder();
-            _repo.WorkOrder.Create(workOrder);
-            Listing thisListing = _repo.Listing.GetListing(listingId);
-            workOrder.Listing = thisListing;
-            workOrder.ListingId = thisListing.ListingId;
+            WorkOrder wo = new WorkOrder();
+            _repo.WorkOrder.CreateWorkOrder(wo);
+            wo.Name = theVM.Name;
+            wo.Description = theVM.Description;
+            wo.IsCompleted = theVM.IsCompleted;
             _repo.Save();
             return RedirectToAction("MyProperties");
         }
         public ActionResult MyProperties()
         {
+            if(this.User.Identity.Name == null)
+            {
+                return RedirectToAction("Error","Home");
+            }
             ListingAddressViewModel myListings = new ListingAddressViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Landlord theLandlord = _repo.Landlord.GetLandlord(userId);
