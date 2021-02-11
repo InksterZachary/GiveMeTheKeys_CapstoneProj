@@ -127,7 +127,7 @@ namespace GMTK_Capstone.Controllers
             var theListings = _repo.Listing.FindAll().ToList();
             theVm.Listings = theListings;
             theVm.Renter = theRenter;
-            foreach(var item in theListings)
+            foreach(var item in theListings.ToList())
             {
                 var landlords = _repo.Landlord.FindAll();
                 foreach(var landy in landlords)
