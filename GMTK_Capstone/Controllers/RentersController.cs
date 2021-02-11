@@ -86,7 +86,11 @@ namespace GMTK_Capstone.Controllers
                 return View();
             }
         }
+        public ActionResult MarketListings()
+        {
 
+            return View();
+        }
         // GET: RentersController/Edit/5
         public ActionResult Edit(int id)
         {

@@ -81,7 +81,7 @@ namespace GMTK_Capstone.Controllers
             _repo.Save();
             return RedirectToAction("MyProperties");
         }
-        public ActionResult ViewRenterApplicants(int iD) //need to update database before running again
+        public ActionResult ViewRenterApplicants(int iD)
         {
             if (this.User.Identity.Name == null)
             {
