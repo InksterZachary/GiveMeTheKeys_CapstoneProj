@@ -14,6 +14,7 @@ namespace GMTK_Capstone.Data
         }
         public Renter GetRenter(int renterId) => FindByCondition(c => c.RenterId.Equals(renterId)).SingleOrDefault();
         public Renter GetRenter(string renterId) => FindByCondition(c => c.IdentityUserId.Equals(renterId)).SingleOrDefault();
+        public IQueryable<Renter> GetAllRenters(int listingId) => FindByCondition(c => c.ListingId.Equals(listingId));
         public void CreateRenter(Renter renter) => Create(renter);
         public void EditRenter(Renter renter) => Update(renter);
         public void DeleteRenter(Renter renter) => Delete(renter);

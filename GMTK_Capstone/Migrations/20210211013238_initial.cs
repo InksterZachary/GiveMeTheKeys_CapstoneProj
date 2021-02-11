@@ -237,6 +237,9 @@ namespace GMTK_Capstone.Migrations
                     IsVerified = table.Column<bool>(nullable: false),
                     HasApplied = table.Column<bool>(nullable: false),
                     AddressId = table.Column<int>(nullable: false),
+                    TraitMatch = table.Column<int>(nullable: false),
+                    ListingId = table.Column<int>(nullable: false),
+                    ProfileImage = table.Column<string>(nullable: true),
                     ApplicationDetailsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -413,12 +416,12 @@ namespace GMTK_Capstone.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "fb3a5711-2ca1-40d7-8b3d-5e96b427f947", "2891a828-27ff-4ce0-9e43-4b7e8c14d90d", "Landlord", "LANDLORD" });
+                values: new object[] { "d18b8c14-fdd0-4ed2-98bf-9dfb05f55c35", "ef2f1f2a-19e7-4a1d-aa3f-7aff5634fbff", "Landlord", "LANDLORD" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "3459ca37-ca60-4845-8c78-6e9809b9678b", "8adc4932-73f3-47c2-b5fe-734d5d0f7850", "Renter", "RENTER" });
+                values: new object[] { "3d698d53-9de0-468a-a712-b6673d2c5a39", "d9017efc-4b46-45be-afb5-df7e485cfe46", "Renter", "RENTER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

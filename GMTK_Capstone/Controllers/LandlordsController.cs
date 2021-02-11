@@ -81,6 +81,85 @@ namespace GMTK_Capstone.Controllers
             _repo.Save();
             return RedirectToAction("MyProperties");
         }
+        public ActionResult ViewRenterApplicants(int iD) //need to update database before running again
+        {
+            if (this.User.Identity.Name == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            LandlordRenterViewModel myApplicants = new LandlordRenterViewModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Landlord theLandlord = _repo.Landlord.GetLandlord(userId);
+            Listing thisListing = _repo.Listing.GetListing(iD);
+            List<Renter> allListingApplicants = _repo.Renter.GetAllRenters(thisListing.ListingId).ToList();
+            foreach(var renter in allListingApplicants)
+            {
+                myApplicants.AppliedRenters.Add(renter);
+                if(renter.IsVerified == false && thisListing.HasVerification == true)
+                {
+                    myApplicants.AppliedRenters.Remove(renter);
+                }
+                if(renter.ApplicationDetails.AnnualIncome/12 >= thisListing.PricePoint * 2)
+                {
+                    renter.TraitMatch++;
+                }
+                if (renter.ApplicationDetails.HasPets == thisListing.HasPet)
+                {
+                    renter.TraitMatch++;
+                }
+                if (renter.ApplicationDetails.IsSmoke == thisListing.IsSmoker)
+                {
+                    renter.TraitMatch++;
+                }
+                if (renter.ApplicationDetails.YearsAtCurrentJob >= 1)
+                {
+                    renter.TraitMatch++;
+                }
+                if (renter.ApplicationDetails.HasOpenCollectionsAccount == false && thisListing.GoodCreditRequired == true)
+                {
+                    renter.TraitMatch++;
+                }
+                if (renter.ApplicationDetails.HasOpenUtilities == false && thisListing.GoodCreditRequired)
+                {
+                    renter.TraitMatch++;
+                }
+                if (renter.ApplicationDetails.HasOnTimePaymentHistory)
+                {
+                    renter.TraitMatch++;
+                }
+                if (renter.ApplicationDetails.HasEviction == false && thisListing.GoodCreditRequired == true)
+                {
+                    renter.TraitMatch++;
+                }
+                myApplicants.AppliedRenters.OrderByDescending(x => x.TraitMatch);
+            }
+            myApplicants.ListingId = iD;
+            myApplicants.Listing = thisListing;
+            myApplicants.ListingName = thisListing.ListingName;
+            myApplicants.HomeType = thisListing.HomeType;
+            myApplicants.PricePoint = thisListing.PricePoint;
+            myApplicants.DealActive = thisListing.DealActive;
+            myApplicants.IsSmoker = thisListing.IsSmoker;
+            myApplicants.HasPet = thisListing.HasPet;
+            myApplicants.AvailabilityDate = thisListing.AvailabilityDate;
+            myApplicants.LengthOfTerm = thisListing.LengthOfTerm;
+            myApplicants.UtilitiesIncluded = thisListing.UtilitiesIncluded;
+            myApplicants.GoodCreditRequired = thisListing.GoodCreditRequired;
+            myApplicants.Amenities = thisListing.Amenities;
+            myApplicants.IsRented = thisListing.IsRented;
+            myApplicants.Beds = thisListing.Beds;
+            myApplicants.Baths = thisListing.Baths;
+            myApplicants.SqareFootage = thisListing.SqareFootage;
+            myApplicants.HasVerification = thisListing.HasVerification;
+            myApplicants.SerializedAddress = thisListing.SerializedAddress;
+            myApplicants.ListingMainPhoto = thisListing.ListingMainPhoto;
+            myApplicants.ProfileImage = thisListing.ProfileImage;
+            return View(myApplicants);
+        }
+        public ActionResult MarketingTips()
+        {
+            return View();
+        }
         public ActionResult MyProperties()
         {
             if(this.User.Identity.Name == null)

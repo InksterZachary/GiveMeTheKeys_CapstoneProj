@@ -11,6 +11,13 @@ namespace GMTK_Capstone.ViewModels
         //List of 
         public List<Renter> AppliedRenters { get; set; }
         public Renter MyRenter { get; set; }
+        //Listing for all this data upon click asp-route-id="@item.ListingId"
+        //in this view asp-hidden blah blah blah
+        public int ListingId { get; set; }
+        public Listing Listing { get; set; }
+        //Renter contact info
+        //public int RenterPhoneNumber { get; set; }
+        //public string RenterEmail { get; set; }
         //Listing Details Below
         public string ListingName { get; set; }
         public string HomeType { get; set; }
@@ -31,16 +38,16 @@ namespace GMTK_Capstone.ViewModels
         public string SerializedAddress { get; set; }
         public string ListingMainPhoto { get; set; }
         public byte[] ProfileImage { get; set; }
-        //AppDetails Below
-        public bool HasPets { get; set; }
-        public bool IsSmoke { get; set; }
-        public bool HasCriminalBackground { get; set; }
-        public bool HasEviction { get; set; }
-        public bool HasOpenUtilities { get; set; }
-        public bool HasOnTimePaymentHistory { get; set; }
-        public bool HasOpenCollectionsAccount { get; set; }
-        public int YearsAtCurrentJob { get; set; }
-        public int AnnualIncome { get; set; }
-        public bool HasApplied { get; set; }
+        ////AppDetails Below
+        //public bool HasPets { get; set; }
+        //public bool IsSmoke { get; set; }
+        //public bool HasCriminalBackground { get; set; }
+        //public bool HasEviction { get; set; }
+        //public bool HasOpenUtilities { get; set; }
+        //public bool HasOnTimePaymentHistory { get; set; }
+        //public bool HasOpenCollectionsAccount { get; set; }
+        //public int YearsAtCurrentJob { get; set; }
+        //public int AnnualIncome { get; set; }
+        //public bool HasApplied { get; set; }
     }
 }

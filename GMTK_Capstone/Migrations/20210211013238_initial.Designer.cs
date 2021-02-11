@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GMTK_Capstone.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210210225535_initial")]
+    [Migration("20210211013238_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -290,8 +290,17 @@ namespace GMTK_Capstone.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ListingId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TraitMatch")
+                        .HasColumnType("int");
 
                     b.HasKey("RenterId");
 
@@ -384,15 +393,15 @@ namespace GMTK_Capstone.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fb3a5711-2ca1-40d7-8b3d-5e96b427f947",
-                            ConcurrencyStamp = "2891a828-27ff-4ce0-9e43-4b7e8c14d90d",
+                            Id = "d18b8c14-fdd0-4ed2-98bf-9dfb05f55c35",
+                            ConcurrencyStamp = "ef2f1f2a-19e7-4a1d-aa3f-7aff5634fbff",
                             Name = "Landlord",
                             NormalizedName = "LANDLORD"
                         },
                         new
                         {
-                            Id = "3459ca37-ca60-4845-8c78-6e9809b9678b",
-                            ConcurrencyStamp = "8adc4932-73f3-47c2-b5fe-734d5d0f7850",
+                            Id = "3d698d53-9de0-468a-a712-b6673d2c5a39",
+                            ConcurrencyStamp = "d9017efc-4b46-45be-afb5-df7e485cfe46",
                             Name = "Renter",
                             NormalizedName = "RENTER"
                         });

@@ -10,6 +10,7 @@ namespace GMTK_Capstone.Contracts
     {
         Renter GetRenter(int renterId);
         Renter GetRenter(string renterId);
+        IQueryable<Renter> GetAllRenters(int listingId);
         void CreateRenter(Renter renter);
         void EditRenter(Renter renter);
         void DeleteRenter(Renter renter);

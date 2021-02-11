@@ -24,6 +24,10 @@ namespace GMTK_Capstone.Models
         [ForeignKey("Address")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
+        public int TraitMatch { get; set; }
+        //a renter will select a listing to apply for it and that this listingid will be set equal to the listingId
+        public int ListingId { get; set; }
+        public string ProfileImage { get; set; }
         public ApplicationDetails ApplicationDetails { get; set; }
 
     }
