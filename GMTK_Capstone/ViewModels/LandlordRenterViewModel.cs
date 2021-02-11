@@ -10,15 +10,12 @@ namespace GMTK_Capstone.ViewModels
     {
         //List of 
         public List<Renter> AppliedRenters { get; set; }
-        public Renter MyRenter { get; set; }
+        public Renter Renter { get; set; }
         //Listing for all this data upon click asp-route-id="@item.ListingId"
         //in this view asp-hidden blah blah blah
         public int ListingId { get; set; }
         public Listing Listing { get; set; }
-        //Renter contact info
-        //public int RenterPhoneNumber { get; set; }
-        //public string RenterEmail { get; set; }
-        //Listing Details Below
+        public List<Listing> Listings { get; set; }
         public string ListingName { get; set; }
         public string HomeType { get; set; }
         public int PricePoint { get; set; }

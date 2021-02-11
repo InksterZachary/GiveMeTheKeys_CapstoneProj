@@ -88,7 +88,53 @@ namespace GMTK_Capstone.Controllers
         }
         public ActionResult MarketListings()
         {
-
+            if (this.User.Identity.Name == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+            LandlordRenterViewModel theVm = new LandlordRenterViewModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Renter theRenter = _repo.Renter.GetRenter(userId);
+            //I want to get a list of all Listings
+            //I want to filter this list by application details
+            var theListings = _repo.Listing.FindAll().ToList();
+            theVm.Listings = theListings;
+            theVm.Renter = theRenter;
+            foreach(var item in theListings)
+            {
+                var landlords = _repo.Landlord.FindAll();
+                foreach(var landy in landlords)
+                {
+                    if(item.ListingId == landy.LandlordId)
+                    {
+                        item.Landlord = landy;
+                    }
+                }
+                if(theRenter.ApplicationDetails.HasPets == true && item.HasPet == false)
+                {
+                    theListings.Remove(item);
+                }
+                if(theRenter.ApplicationDetails.IsSmoke == true && item.IsSmoker == false)
+                {
+                    theListings.Remove(item);
+                }
+                if (theRenter.HasApplied)
+                {
+                    theVm.AppliedRenters.Add(theRenter);
+                }
+            }
+            return View(theVm);
+        }
+        public ActionResult HasApplied(int iD)
+        {
+            var theRenter = _repo.Renter.GetRenter(iD);
+            return View(theRenter);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult HasApplied(Renter renter)
+        {
+            renter.HasApplied = true;
             return View();
         }
         // GET: RentersController/Edit/5

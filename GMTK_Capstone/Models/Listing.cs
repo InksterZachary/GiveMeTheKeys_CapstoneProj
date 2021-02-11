@@ -14,7 +14,7 @@ namespace GMTK_Capstone.Models
         public int ListingId { get; set; }
         public Landlord Landlord { get; set; }
         public Address Address { get; set; }
-        public List<WorkOrder> WorkOrders {get;set; }
+        public List<WorkOrder> WorkOrders { get; set; }
         public string ListingName { get; set; }
         public string HomeType { get; set; }
         public int PricePoint { get; set; }

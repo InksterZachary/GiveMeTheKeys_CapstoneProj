@@ -12,6 +12,7 @@ namespace GMTK_Capstone.ViewModels
         public string ListingName { get; set; }
         public string StreetAddress { get; set; }
         public Landlord Landlord { get; set; }
+        public Renter Renter { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
