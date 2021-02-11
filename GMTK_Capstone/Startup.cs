@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Stripe;
+using Stripe.Infrastructure;
 
 namespace GMTK_Capstone
 {
@@ -45,7 +47,7 @@ namespace GMTK_Capstone
             {
                 config.Filters.Add(typeof(GlobalRouting));
             });
-
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -53,6 +55,9 @@ namespace GMTK_Capstone
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
+            //StripeConfiguration.ApiKey("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
+            //says its obsolete then says noninvocable method "Switch to setapikey"
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

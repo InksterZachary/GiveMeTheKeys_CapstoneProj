@@ -8,7 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
+using Stripe;
+using Stripe.Infrastructure;
+using Stripe.Checkout;
+using Stripe.BillingPortal;
 namespace GMTK_Capstone.Controllers
 {
     public class RentersController : Controller
@@ -17,6 +20,29 @@ namespace GMTK_Capstone.Controllers
         public RentersController(IRepositoryWrapper repo)
         {
             _repo = repo;
+        }
+        public ActionResult Charge(string stripeEmail, string stripeToken)
+        {
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+            var charge = charges.Create(new ChargeCreateOptions { 
+                Amount = 50,
+                Description = "Verification Payment",
+                Currency ="usd",
+                Customer = customer.ToString()
+            });
+
+            if(charge.Status == "succeeded")
+            {
+                string BalanceTransactionId = charge.BalanceTransactionId;
+            }
+            return View();
         }
         // GET: RentersController
         public ActionResult Index()
@@ -50,7 +76,7 @@ namespace GMTK_Capstone.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(RenterAddressViewModel theVM)
         {
-            Address newAddress = new Address();
+            Models.Address newAddress = new Models.Address();
             Renter newRenter = new Renter();
             ApplicationDetails newApplicationDetails = new ApplicationDetails();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
