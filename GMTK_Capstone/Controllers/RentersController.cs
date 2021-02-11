@@ -95,8 +95,9 @@ namespace GMTK_Capstone.Controllers
             LandlordRenterViewModel theVm = new LandlordRenterViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             Renter theRenter = _repo.Renter.GetRenter(userId);
-            //I want to get a list of all Listings
-            //I want to filter this list by application details
+            ApplicationDetails appDeets = _repo.ApplicationDetails.GetApplicationDetails(theRenter.RenterId);
+            theRenter.ApplicationDetails = appDeets;
+            theRenter.HasApplied = false;
             var theListings = _repo.Listing.FindAll().ToList();
             theVm.Listings = theListings;
             theVm.Renter = theRenter;

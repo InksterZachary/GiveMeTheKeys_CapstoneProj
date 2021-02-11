@@ -1,4 +1,4 @@
-﻿@model GMTK_Capstone.ViewModels.ListingAddressViewModel
+﻿@model GMTK_Capstone.ViewModels.LandlordRenterViewModel
 
 @{
     ViewData["Title"] = "MarketListings";
@@ -56,7 +56,7 @@
         </div>
     </div>
     <div>
-        @Html.ActionLink("CreateListing", "CreateListing") |
-        <a asp-action="Index">Back</a>
+        @Html.ActionLink("MyProfile", "Index") |
+        <a asp-action="MarketListings">Back</a>
     </div>
 </body>
