@@ -1,0 +1,16 @@
+﻿body {
+    align-content:center;
+}
+
+.header-image {
+    background: url(../images/mansionBG.jpg);
+    height: auto;
+    max-width: 100%;
+    border-radius: 0 0 15px 15px;
+}
+
+.header-fill {
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
