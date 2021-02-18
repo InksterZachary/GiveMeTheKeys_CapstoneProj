@@ -5,17 +5,29 @@
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
+    color:white;
 }
 
 .header-image {
-    background: url(../images/mansionBG.jpg);
-    height: auto;
+    background: url(../images/jason-briscoe-GliaHAJ3_5A-unsplash.jpg);
+    background-size: contain;
+    max-height: 100%;
     max-width: 100%;
-    border-radius: 0 0 15px 15px;
+    background-position: center;
+    border-radius: 0 0 8rem 8rem;
+     box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.3);
+    /*filter: brightness(50%);*/
 }
 
 .header-fill {
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
+}
+
+.white-text {
+    position:relative;
+    padding-bottom: 4em;
+    color: white;
+    z-index:2;
 }
