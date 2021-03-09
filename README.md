@@ -1,1 +1,2 @@
 # GiveMeTheKeys_CapstoneProj
+GMTK was designed with renter and landlord in mind. The renters unique ability to pay in app for a background check sets us apart from the competition. Often times private landlords don’t have the capability to run background checks and those who do require a new check per application submitted. This saves the renter money and brings trust and assurance to all parties involved.
